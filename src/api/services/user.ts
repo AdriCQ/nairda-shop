@@ -1,6 +1,11 @@
 import { AxiosInstance } from 'axios';
 
-import { IUserAuthLoginRequest, IUserAuthRegisterRequest, IUserAuthResponse, IUserProfile } from '../types/user';
+import {
+  IUserAuthLoginRequest,
+  IUserAuthRegisterRequest,
+  IUserAuthResponse,
+  IUserProfile,
+} from '../types/user';
 
 import { csrfToken } from './csrf';
 /**
@@ -14,11 +19,11 @@ export class UserServices {
   constructor(private readonly api: AxiosInstance) {}
   /**
    * login
-   * @param credentials 
+   * @param credentials
    */
   async login(credentials: IUserAuthLoginRequest) {
     await csrfToken(this.api);
-    return this.api.post<IUserAuthResponse>('/api/users/login', credentials)
+    return this.api.post<IUserAuthResponse>('/api/users/login', credentials);
   }
   /**
    * profile

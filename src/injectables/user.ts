@@ -88,6 +88,14 @@ class UserInjectable {
     }
   }
   /**
+   * logout
+   */
+  logout() {
+    this.apiToken = null;
+    this.profile = null;
+    this.save();
+  }
+  /**
    * save data on localstorage
    */
   save() {
