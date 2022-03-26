@@ -8,4 +8,6 @@ import { $app, $user, _app, _user } from 'src/injectables';
 
 provide(_user, $user);
 provide(_app, $app);
+
+$user.load();
 </script>

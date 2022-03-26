@@ -2,19 +2,19 @@
   <q-carousel arrows infinite autoplay animated v-model="slide">
     <q-carousel-slide name="first" img-src="images/default.jpg">
       <div class="absolute-bottom custom-caption">
-        <div class="text-h4">First stop</div>
+        <div class="text-h6">First stop</div>
         <div class="text-subtitle1">Mountains</div>
       </div>
     </q-carousel-slide>
     <q-carousel-slide name="second" img-src="images/default.jpg">
       <div class="absolute-bottom custom-caption">
-        <div class="text-h4">Second stop</div>
+        <div class="text-h6">Second stop</div>
         <div class="text-subtitle1">Famous City</div>
       </div>
     </q-carousel-slide>
     <q-carousel-slide name="third" img-src="images/default.jpg">
       <div class="absolute-bottom custom-caption">
-        <div class="text-h4">Third stop</div>
+        <div class="text-h6">Third stop</div>
         <div class="text-subtitle1">Famous Bridge</div>
       </div>
     </q-carousel-slide>
