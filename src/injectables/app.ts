@@ -25,6 +25,12 @@ class AppInjectable {
    *	Mutators
    * -----------------------------------------
    */
+  /**
+   * toggleDrawerLeft
+   */
+  toggleDrawerLeft() {
+    this.drawerLeft = !this.drawerLeft;
+  }
 }
 
 export const $app = new AppInjectable();

@@ -1,16 +1,20 @@
 <template>
-  <q-card>
-    <q-card-section>
-      <div class="text-h6">{{ props.data }}</div>
-    </q-card-section>
-    <q-card-section>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  <q-card class="text-grey-9">
+    <q-img :src="data.image" :ratio="16 / 9" spinner-color="primary">
+      <div class="absolute-top-right cursor-pointer" style="padding: 0.2rem">
+        Hell
+      </div>
+    </q-img>
+    <q-card-section class="text-center">
+      <div class="text-body1">{{ data.title }}</div>
     </q-card-section>
   </q-card>
 </template>
 
 <script setup lang="ts">
 import { IShopOffer } from 'src/api';
+import { toRefs } from 'vue';
 
-const props = defineProps<{ data: IShopOffer }>();
+const $props = defineProps<{ data: IShopOffer }>();
+const { data } = toRefs($props);
 </script>

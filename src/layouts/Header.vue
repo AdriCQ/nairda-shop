@@ -1,17 +1,16 @@
 <template>
   <q-header elevated>
-    <q-toolbar>
+    <q-toolbar class="bg-secondary text-white">
       <q-btn
         flat
         dense
         round
         icon="mdi-menu"
         aria-label="Menu"
-        text-color="dark"
         @click="toggleDrawerLeft"
       />
 
-      <q-toolbar-title>
+      <q-toolbar-title class="text-white">
         <q-input
           v-model="search"
           type="search"
@@ -22,8 +21,8 @@
         >
           <template v-slot:after>
             <q-btn
+              class="text-white"
               icon="mdi-magnify"
-              text-color="dark"
               flat
               dense
               round
@@ -33,16 +32,6 @@
         </q-input>
       </q-toolbar-title>
     </q-toolbar>
-    <q-tabs
-      align="left"
-      inline-label
-      class="text-dark"
-      v-if="!$q.platform.is.mobile"
-    >
-      <q-route-tab exact label="Teléfonos" />
-      <q-route-tab exact label="Entidades" />
-      <q-route-tab exact label="Planes" />
-    </q-tabs>
   </q-header>
 </template>
 

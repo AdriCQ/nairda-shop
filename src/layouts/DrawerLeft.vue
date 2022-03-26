@@ -9,12 +9,7 @@
       <!-- HOME -->
       <q-item clickable v-ripple>
         <q-item-section avatar top>
-          <q-avatar
-            size="md"
-            icon="mdi-home"
-            color="primary"
-            text-color="white"
-          />
+          <q-avatar size="md" icon="mdi-home" text-color="primary" />
         </q-item-section>
 
         <q-item-section>

@@ -12,7 +12,7 @@ class NotificationHelper {
    * axiosError
    * @param _error
    */
-  axiosError<T = unknown>(_error: unknown) {
+  axiosError<T = unknown>(_error: unknown, _default?: string) {
     console.log({ AxiosError: _error });
     const error = _error as AxiosError<T>;
     if (error.response) {
@@ -21,6 +21,9 @@ class NotificationHelper {
         void $router.push({ name: ROUTE_NAME.HOME });
         return;
       }
+    }
+    if (_default) {
+      this.error([_default]);
     }
   }
   /**

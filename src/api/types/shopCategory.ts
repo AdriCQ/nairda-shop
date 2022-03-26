@@ -1,7 +1,15 @@
-export type IShopCategory = {
-  readonly tag: string;
-  readonly title: string;
-  readonly icons: {
+export interface IShopCategory {
+  tag: string;
+  title: string;
+  description: string;
+  parent_tag: string;
+  icons: {
     mdi?: string;
   };
-};
+}
+/**
+ * IShopCategoryWithChild
+ */
+export interface IShopCategoryWithChild extends IShopCategory {
+  child: IShopCategory[];
+}

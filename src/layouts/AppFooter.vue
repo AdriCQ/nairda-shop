@@ -1,13 +1,43 @@
 <template>
-  <q-footer elevated class="bg-secondary text-white">
-    <q-toolbar>
-      <q-card class="bg-transparent no-box-shadow row">
-        <q-card-section>
-          <div class="text-body1">Categorias</div>
-        </q-card-section>
-        <q-card-section> Lorem ipsum dolor sit amet </q-card-section>
-      </q-card>
-    </q-toolbar>
-    <div class="text-center q-mb-md"><q-icon name="mdi-copyright" /></div>
+  <q-footer elevated class="bg-secondary">
+    <q-tabs
+      align="justify"
+      indicator-color="transparent"
+      active-color="primary"
+      id="tab-buttons"
+      no-caps
+    >
+      <q-route-tab exact>
+        <q-icon name="mdi-home" size="1.6rem" />
+      </q-route-tab>
+      <q-route-tab exact>
+        <q-icon name="mdi-store" size="1.6rem" />
+      </q-route-tab>
+      <q-route-tab exact>
+        <q-icon name="mdi-cart-outline" size="1.6rem" />
+      </q-route-tab>
+
+      <!-- <q-route-tab exact icon="mdi-magnify" :to="{name: 'main.home'}">
+        <span class="text-body2 text-weight-bolder">Buscar</span>
+      </q-route-tab>-->
+      <q-tab>
+        <q-icon
+          size="1.6rem"
+          name="mdi-apps"
+          @click="$app.toggleDrawerLeft()"
+        />
+      </q-tab>
+    </q-tabs>
   </q-footer>
 </template>
+<script lang="ts" setup>
+import { injectStrict, _app } from 'src/injectables';
+
+const $app = injectStrict(_app);
+</script>
+
+<style>
+.footer-tabs .q-tab__icon {
+  font-size: 5rem;
+}
+</style>

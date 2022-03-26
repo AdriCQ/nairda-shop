@@ -1,30 +1,44 @@
 <template>
-  <q-card class="login-card">
+  <q-card>
     <q-card-section class="text-center text-grey-9">
       <div class="text-body1">
         Inicia sesión para vivir una mejor experiencia
       </div>
     </q-card-section>
-    <q-form @submit.prevent="login">
+    <q-form @submit.prevent="onSubmit">
       <q-card-section class="q-gutter-y-md">
         <q-input
-          name="email"
-          v-model="loginForm.email"
-          type="email"
-          label="Email"
+          v-model="form.first_name"
+          type="text"
+          label="Nombre"
+          name="name"
         />
         <q-input
+          v-model="form.last_name"
+          type="text"
+          label="Apellidos"
+          name="last_name"
+        />
+        <q-input name="email" v-model="form.email" type="email" label="Email" />
+
+        <q-input
           name="password"
-          v-model="loginForm.password"
+          v-model="form.password"
           type="password"
           label="Contraseña"
+        />
+        <q-input
+          name="password_confirmation"
+          v-model="form.password_confirmation"
+          type="password"
+          label="Repita Contraseña"
         />
       </q-card-section>
       <q-card-section
         class="text-primary cursor-pointer"
         @click="$emit('toggle')"
       >
-        No tengo cuenta
+        Ya tengo cuenta
       </q-card-section>
       <q-card-actions>
         <q-btn
@@ -41,56 +55,44 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { notificationHelper } from 'src/helpers';
-import { IUserAuthLoginRequest } from 'src/api';
 import { injectStrict, _user } from 'src/injectables';
-import { useRouter } from 'vue-router';
-import { ROUTE_NAME } from 'src/router';
-
+import { IUserAuthRegisterRequest } from 'src/api';
+import { notificationHelper } from 'src/helpers';
 /**
  * -----------------------------------------
- *	Init
+ *	Setup
  * -----------------------------------------
  */
 const $emit = defineEmits<{ (e: 'toggle'): void }>();
 const $user = injectStrict(_user);
-const $router = useRouter();
 /**
  * -----------------------------------------
  *	Data
  * -----------------------------------------
  */
-const loginForm = ref<IUserAuthLoginRequest>({
+const form = ref<IUserAuthRegisterRequest>({
   email: '',
+  first_name: '',
+  last_name: '',
   password: '',
-  service_name: 'MainApp',
-  auth_mode: 'user',
+  password_confirmation: '',
+  service_name: 'nairda-shop',
 });
-
 /**
  * -----------------------------------------
- *	methods
+ *	Methods
  * -----------------------------------------
  */
 /**
- * login
+ * onSubmit
  */
-async function login() {
+async function onSubmit() {
   notificationHelper.loading();
   try {
-    await $user.loginAction(loginForm.value);
-    void $router.push({ name: ROUTE_NAME.HOME });
-    notificationHelper.success([`Bienvenido ${$user.profile?.first_name}`]);
+    await $user.registerAction(form.value);
   } catch (error) {
-    notificationHelper.error(['Credenciales incorrectas']);
+    notificationHelper.axiosError(error, 'No pudimos completar el registro');
   }
   notificationHelper.loading(false);
 }
 </script>
-
-<style scoped>
-.login-card {
-  max-width: 25rem;
-  min-width: 20rem;
-}
-</style>
