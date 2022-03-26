@@ -1,7 +1,11 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
 
-import { Paginated } from '..';
-import { IShopOffer, IShopOfferCreateRequest, IShopOfferUpdateRequest } from '../types/shopOffer';
+import { Paginated } from '../types/responses';
+import {
+  IShopOffer,
+  IShopOfferCreateRequest,
+  IShopOfferUpdateRequest,
+} from '../types/shopOffer';
 
 /**
  * ShopOfferService
@@ -45,6 +49,9 @@ export class ShopOfferService {
    * @param update Partial<IShopOffer>
    */
   async update(offerId: number, update: IShopOfferUpdateRequest) {
-    return this.api.patch<IShopOffer, AxiosResponse<IShopOffer>>(`/api/shop/offers/${offerId}`, update);
+    return this.api.patch<IShopOffer, AxiosResponse<IShopOffer>>(
+      `/api/shop/offers/${offerId}`,
+      update
+    );
   }
 }

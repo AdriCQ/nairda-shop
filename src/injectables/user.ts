@@ -57,6 +57,7 @@ class UserInjectable {
     this.profile = resp.data.data;
     this.apiToken = resp.data.api_token;
     this.save();
+    return resp;
   }
   /**
    * Register Action
@@ -67,6 +68,7 @@ class UserInjectable {
     this.profile = resp.data.data;
     this.apiToken = resp.data.api_token;
     this.save();
+    return resp;
   }
   /**
    * -----------------------------------------

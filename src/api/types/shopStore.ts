@@ -11,7 +11,7 @@ export type IShopStore = {
   readonly image: IImage;
   readonly map_position: IMapPosition;
   readonly rating: number;
-}
+};
 
 /**
  * -----------------------------------------
@@ -27,7 +27,7 @@ export type IShopStoreCreateRequest = {
   readonly description: string;
   readonly map_position: Omit<IMapPosition, 'id'>;
   readonly open?: boolean;
-}
+};
 /**
  * @type IShopStoreUpdateRequest
  */

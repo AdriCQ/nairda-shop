@@ -1,6 +1,7 @@
 import { AxiosInstance } from 'axios';
 
 import { csrfToken } from './services/csrf';
+import { ShopCategoryService } from './services/shopCategory';
 import { ShopOfferService } from './services/shopOffer';
 import { ShopOrderService } from './services/shopOrder';
 import { ShopStoreService } from './services/shopStore';
@@ -15,6 +16,8 @@ export default function NairdaApi(api: AxiosInstance) {
    * CsrfToken
    */
   const CsrfToken = csrfToken(api);
+
+  const ShopCategory = new ShopCategoryService(api);
   /**
    * ShopOrder
    */
@@ -34,6 +37,7 @@ export default function NairdaApi(api: AxiosInstance) {
 
   return {
     CsrfToken,
+    ShopCategory,
     ShopOffer,
     ShopOrder,
     ShopStore,

@@ -4,9 +4,8 @@
     @update:model-value="updateDrawerleft"
     show-if-above
     bordered
-    class="bg-secondary text-white"
   >
-    <q-list class="rounded-borders">
+    <q-list class="rounded-borders text-grey-9">
       <!-- HOME -->
       <q-item clickable v-ripple>
         <q-item-section avatar top>
