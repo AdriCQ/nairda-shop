@@ -1,17 +1,19 @@
-import { IImage } from './image';
-import { IMapPosition } from './mapPosition';
+import { IMapCoordinate } from './mapPosition';
+import { IShopCategory } from './shopCategory';
 
 /**
  * @type IShopStore
  */
-export type IShopStore = {
-  readonly id: number;
-  readonly title: string;
-  readonly description: string;
-  readonly image: IImage;
-  readonly map_position: IMapPosition;
-  readonly rating: number;
-};
+export interface IShopStore {
+  id: number;
+  title: string;
+  description?: string;
+  image: string;
+  map_address?: string;
+  map_coordinate?: IMapCoordinate;
+  rating: number;
+  category?: IShopCategory;
+}
 
 /**
  * -----------------------------------------
@@ -25,7 +27,7 @@ export type IShopStore = {
 export type IShopStoreCreateRequest = {
   readonly title: string;
   readonly description: string;
-  readonly map_position: Omit<IMapPosition, 'id'>;
+  readonly map_position: IMapCoordinate;
   readonly open?: boolean;
 };
 /**

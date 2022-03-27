@@ -1,26 +1,38 @@
-import { IMapPosition } from './mapPosition';
+import { IMapCoordinate } from './mapPosition';
 import { IShopOfferMin } from './shopOffer';
+import { IShopStore } from './shopStore';
+import { IUserProfile } from './user';
 /**
  * IShopOrderOffer
  */
 export type IShopOrderOffer = {
   readonly qty: number;
-  readonly shop_offer_id?: number;
-  readonly offer?: IShopOfferMin
-}
+  // readonly order?: IShopOrder;
+  readonly offer: IShopOfferMin;
+};
 /**
  * IShopOrderStatus
  */
-export type IShopOrderStatus = 'PROCESSING' | 'ACCEPTED' | 'COMPLETED' | 'CANCELED' | 'ABORTED';
+export type IShopOrderStatus =
+  | 'PROCESSING'
+  | 'ACCEPTED'
+  | 'COMPLETED'
+  | 'CANCELED'
+  | 'ABORTED';
 /**
  * IShopOrder
  */
-export type IShopOrder = {
-  readonly id: number;
-  readonly total_price: 100;
-  readonly delivery_time: string;
-  readonly map_position: IMapPosition;
-  readonly status: IShopOrderStatus;
+export interface IShopOrder {
+  id: number;
+  total_price: number;
+  shipping_address: string;
+  shipping_coordinate: IMapCoordinate;
+  shipping_time: string;
+  status: IShopOrderStatus;
+  order_offers: IShopOrderOffer[];
+  // Optionals
+  customer?: IUserProfile;
+  store?: IShopStore;
 }
 
 /**
@@ -31,16 +43,17 @@ export type IShopOrder = {
 /**
  * IShopOrderCreateRequest
  */
-export type IShopOrderCreateRequest = {
-  readonly store_id: number,
-  readonly delivery_time: string;
-  readonly order_offers: Array<{ readonly offer_id: number; readonly qty: number; }>;
-  readonly map_position: Omit<IMapPosition, 'id' | 'title'>;
+export interface IShopOrderCreateRequest {
+  store_id: number;
+  order_offers: Array<{ qty: number; offer_id: number }>;
+  shipping_address: string;
+  shipping_coordinate: IMapCoordinate;
+  shipping_time: string;
 }
 /**
  * IShopOrderUpdateRequest
  */
-export type IShopOrderUpdateRequest = {
-  readonly delivery_time: string;
-  readonly status: IShopOrderStatus;
+export interface IShopOrderUpdateRequest {
+  shipping_time: string;
+  status: IShopOrderStatus;
 }

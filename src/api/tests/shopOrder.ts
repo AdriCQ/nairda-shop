@@ -21,14 +21,12 @@ export function ShopOrderTests(api: AxiosInstance) {
         (
           await $service.create({
             store_id: 1,
-            delivery_time: '2022-03-21 12:00:00',
-            map_position: {
-              coords: {
-                lat: 12,
-                lng: 3,
-              },
-              public: true,
+            shipping_address: 'address',
+            shipping_coordinate: {
+              lat: 0,
+              lng: 0,
             },
+            shipping_time: '2022-03-22 12:00:00',
             order_offers: [
               {
                 offer_id: 1,
@@ -51,7 +49,7 @@ export function ShopOrderTests(api: AxiosInstance) {
         'Success ShopOrder update',
         (
           await $service.updateStatus(1, {
-            delivery_time: '2022-03-22 12:00:00',
+            shipping_time: '2022-03-22 12:00:00',
             status: 'ACCEPTED',
           })
         ).data
