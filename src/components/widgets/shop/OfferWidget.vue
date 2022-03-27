@@ -1,11 +1,11 @@
 <template>
-  <q-card class="text-grey-9">
+  <q-card class="text-grey-9" @click="goToOffer">
     <q-img :src="data.image" :ratio="16 / 9" spinner-color="primary">
-      <div class="absolute-top-right cursor-pointer" style="padding: 0.2rem">
-        Hell
+      <div class="absolute-top-right" style="padding: 0.2rem">
+        ${{ Number(data.sell_price).toFixed(2) }}
       </div>
     </q-img>
-    <q-card-section class="text-center">
+    <q-card-section class="text-center q-pa-xs">
       <div class="text-body1">{{ data.title }}</div>
     </q-card-section>
   </q-card>
@@ -13,8 +13,18 @@
 
 <script setup lang="ts">
 import { IShopOffer } from 'src/api';
+import { ROUTE_NAME } from 'src/router';
 import { toRefs } from 'vue';
+import { useRouter } from 'vue-router';
 
 const $props = defineProps<{ data: IShopOffer }>();
+const $router = useRouter();
 const { data } = toRefs($props);
+
+function goToOffer() {
+  void $router.push({
+    name: ROUTE_NAME.SHOP_OFFER,
+    params: { id: data.value.id },
+  });
+}
 </script>

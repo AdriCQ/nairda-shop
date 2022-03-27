@@ -1,5 +1,6 @@
 import { IMapCoordinate } from './mapPosition';
 import { IShopCategory } from './shopCategory';
+import { IShopOffer } from './shopOffer';
 
 /**
  * @type IShopStore
@@ -13,6 +14,7 @@ export interface IShopStore {
   map_coordinate?: IMapCoordinate;
   rating: number;
   category?: IShopCategory;
+  offers?: IShopOffer[];
 }
 
 /**

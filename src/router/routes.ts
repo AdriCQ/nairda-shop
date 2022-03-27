@@ -1,6 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import { ROUTE_NAME } from './names';
 import authRoutes from './routes/auth';
+import shopRoutes from './routes/shop';
 /**
  * routes
  */
@@ -17,6 +18,7 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   authRoutes,
+  shopRoutes,
   // Always leave this as last one,
   // but you can also remove it
   {

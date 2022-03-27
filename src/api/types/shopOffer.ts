@@ -1,4 +1,5 @@
 import { IImage } from './image';
+import { IShopCategory } from './shopCategory';
 
 export type IShopOfferType = 'PRODUCT' | 'SERVICE';
 export type IShopOfferStockType = 'INFINITY' | 'LIMITED' | 'SOLD_OUT';
@@ -16,6 +17,7 @@ export interface IShopOffer {
   vendor_price?: number;
   rating: number;
   image: IImage;
+  category?: IShopCategory;
 }
 /**
  * IShopOfferMin

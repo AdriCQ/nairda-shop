@@ -1,11 +1,11 @@
 <template>
-  <Carousel :items-to-show="3" :wrap-around="true">
+  <Carousel :items-to-show="3" :wrap-around="true" v-if="categories.length">
     <Slide v-for="(cat, key) in categories" :key="`cat-${cat.tag}-${key}`">
       <q-avatar
         size="5rem"
         font-size="3rem"
         color="primary"
-        text-color="secondary"
+        text-color="white"
         :icon="cat.icons.mdi"
       />
     </Slide>

@@ -8,11 +8,17 @@
         <div class="col-sm-6 col-md-4 col-xs-12">
           <home-slider />
         </div>
+        <div class="col-sm-6 col-md-4 col-xs-12 q-gutter-y-sm">
+          <title-widget :data="{ title: 'Categorías' }" />
+          <category-slider />
+        </div>
+        <div class="col-sm-6 col-md-4 col-xs-12 q-gutter-y-sm">
+          <title-widget :data="{ title: 'Tiendas' }" />
+          <div>
+            <store-group :data="stores" />
+          </div>
+        </div>
       </div>
-    </section>
-    <section class="q-gutter-y-sm">
-      <title-widget :data="{ title: 'Categorías' }" />
-      <category-slider />
     </section>
   </q-page>
 </template>
@@ -21,6 +27,20 @@
 import AuthWidget from 'src/components/widgets/AuthWidget.vue';
 import CategorySlider from 'src/components/sliders/CategorySlider.vue';
 import HomeSlider from 'src/components/sliders/HomeSlider.vue';
+import StoreGroup from 'src/components/groups/StoresGroup.vue';
 import TitleWidget from 'src/components/widgets/TitleWidget.vue';
 import { isAuth } from 'src/helpers';
+import { ref } from 'vue';
+import { IShopStore } from 'src/api';
+import { $api } from 'src/boot/axios';
+
+const stores = ref<IShopStore[]>([]);
+
+async function getConfig() {
+  const resp = await $api.get<IShopStore[]>('api/applications/nairda');
+  console.log({ stores: resp.data });
+  stores.value = resp.data;
+}
+
+void getConfig();
 </script>

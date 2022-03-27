@@ -1,19 +1,19 @@
 /**
  * @type Paginated
  */
-export type Paginated<T> = {
-  readonly data: readonly T[];
-  readonly links: {
-    readonly first: string | null;
-    readonly last: string | null;
-    readonly prev: string | null;
-    readonly next: string | null;
+export interface Paginated<T> {
+  data: T[];
+  links: {
+    first: string | null;
+    last: string | null;
+    prev: string | null;
+    next: string | null;
   };
-  readonly meta: {
-    readonly current_page: number;
-    readonly from: number;
-    readonly path: string;
-    readonly per_page: number;
-    readonly to: number;
-  }
+  meta: {
+    current_page: number;
+    from: number;
+    path: string;
+    per_page: number;
+    to: number;
+  };
 }

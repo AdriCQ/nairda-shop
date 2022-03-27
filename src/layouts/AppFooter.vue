@@ -7,10 +7,10 @@
       id="tab-buttons"
       no-caps
     >
-      <q-route-tab exact>
-        <q-icon name="mdi-home" :to="{ name: ROUTE_NAME.HOME }" size="1.6rem" />
+      <q-route-tab exact :to="{ name: ROUTE_NAME.HOME }">
+        <q-icon name="mdi-home" size="1.6rem" />
       </q-route-tab>
-      <q-route-tab exact>
+      <q-route-tab exact :to="{ name: ROUTE_NAME.SHOP_STORES }">
         <q-icon name="mdi-store" size="1.6rem" />
       </q-route-tab>
       <q-route-tab exact>
