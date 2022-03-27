@@ -13,10 +13,12 @@
           <category-slider />
         </div>
         <div class="col-sm-6 col-md-4 col-xs-12 q-gutter-y-sm">
-          <title-widget :data="{ title: 'Tiendas' }" />
-          <div>
-            <store-group :data="stores" />
-          </div>
+          <template v-if="stores.length">
+            <title-widget :data="{ title: 'Tiendas' }" />
+            <div>
+              <store-group :data="stores" />
+            </div>
+          </template>
         </div>
       </div>
     </section>
@@ -38,7 +40,6 @@ const stores = ref<IShopStore[]>([]);
 
 async function getConfig() {
   const resp = await $api.get<IShopStore[]>('api/applications/nairda');
-  console.log({ stores: resp.data });
   stores.value = resp.data;
 }
 

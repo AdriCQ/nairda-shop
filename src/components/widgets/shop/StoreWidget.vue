@@ -4,7 +4,7 @@
       :src="handleImage($props.data.image)"
       spinner-color="primary"
       spinner-size="82px"
-      :ratio="16 / 9"
+      :ratio="4 / 3"
     />
     <q-card-section class="q-pa-xs text-center">
       <div class="text-body1">{{ $props.data.title }}</div>

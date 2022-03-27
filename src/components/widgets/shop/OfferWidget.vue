@@ -1,6 +1,6 @@
 <template>
   <q-card class="text-grey-9" @click="goToOffer">
-    <q-img :src="data.image" :ratio="16 / 9" spinner-color="primary">
+    <q-img :src="data.image" :ratio="4 / 3" spinner-color="primary">
       <div class="absolute-top-right" style="padding: 0.2rem">
         ${{ Number(data.sell_price).toFixed(2) }}
       </div>

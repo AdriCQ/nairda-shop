@@ -8,18 +8,30 @@
       <q-card class="no-box-shadow">
         <q-img
           :src="handleImage(offer.image)"
-          :ratio="16 / 9"
+          :ratio="4 / 3"
           spinner-color="primary"
           spinner-size="82px"
           :alt="offer.title"
         >
           <div
-            class="absolute-top-right"
+            class="absolute-bottom-right"
             v-if="offer.category"
             style="padding: 0.2rem"
           >
             <q-icon class="q-mr-sm" :name="offer.category.icons.mdi" />
             {{ offer.category?.title }}
+          </div>
+
+          <div class="absolute-top-left" style="padding: 0.2rem">
+            {{ offer.type === 'PRODUCT' ? 'Producto' : 'Servicio' }}
+          </div>
+          <div
+            class="absolute-top-right"
+            style="padding: 0.2rem"
+            v-if="offer.rating > 0"
+          >
+            <span>{{ offer.rating }}</span>
+            <q-icon size="sm" class="q-ml-xs" name="mdi-star" color="primary" />
           </div>
         </q-img>
         <q-card-section>
@@ -28,9 +40,7 @@
             ${{ Number(offer.sell_price).toFixed(2) }}
           </div>
         </q-card-section>
-        <q-card-section>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit
-        </q-card-section>
+        <q-card-section v-html="offer.description" />
       </q-card>
     </section>
 
