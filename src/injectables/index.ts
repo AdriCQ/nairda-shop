@@ -18,4 +18,8 @@ export * from './app';
  * Shop
  */
 export * from './shop/category';
+export * from './shop/cart';
+/**
+ * User
+ */
 export * from './user';

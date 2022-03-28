@@ -1,15 +1,15 @@
 import { IMapCoordinate } from './mapPosition';
-import { IShopOfferMin } from './shopOffer';
+import { IShopOffer } from './shopOffer';
 import { IShopStore } from './shopStore';
 import { IUserProfile } from './user';
 /**
  * IShopOrderOffer
  */
-export type IShopOrderOffer = {
-  readonly qty: number;
-  // readonly order?: IShopOrder;
-  readonly offer: IShopOfferMin;
-};
+export interface IShopOrderOffer {
+  qty: number;
+  offer_id?: number;
+  offer?: IShopOffer;
+}
 /**
  * IShopOrderStatus
  */

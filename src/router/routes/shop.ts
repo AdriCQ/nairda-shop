@@ -7,6 +7,11 @@ const route: RouteRecordRaw = {
   component: MainLayoutVue,
   children: [
     {
+      path: 'cart',
+      name: ROUTE_NAME.SHOP_CART,
+      component: () => import('pages/shop/CartPage.vue'),
+    },
+    {
       path: 'offers/:id',
       name: ROUTE_NAME.SHOP_OFFER,
       component: () => import('pages/shop/OfferPage.vue'),

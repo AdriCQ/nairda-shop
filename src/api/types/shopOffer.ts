@@ -19,17 +19,6 @@ export interface IShopOffer {
   image: IImage;
   category?: IShopCategory;
 }
-/**
- * IShopOfferMin
- */
-export type IShopOfferMin = {
-  readonly id: number;
-  readonly title: string;
-  readonly type: IShopOfferType;
-  readonly sell_price: number;
-  readonly rating: number;
-  readonly image: IImage;
-};
 
 /**
  * -----------------------------------------

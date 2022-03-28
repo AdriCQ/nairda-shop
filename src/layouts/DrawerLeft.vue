@@ -59,7 +59,7 @@ import { computed } from 'vue';
 const $app = injectStrict(_app);
 const $categories = injectStrict(_shopCategory);
 
-const categories = computed(() => $categories.all);
+const categories = computed(() => $categories.available);
 const drawerLeft = computed(() => $app.drawerLeft);
 
 function updateDrawerleft(open: boolean) {

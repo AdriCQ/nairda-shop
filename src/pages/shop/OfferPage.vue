@@ -51,9 +51,9 @@
           <div class="row" v-if="offer?.type === 'PRODUCT'">
             <div class="col">
               <input-spinner
-                v-model="cant"
+                v-model="qty"
                 :min="0"
-                :max="offer?.stock_qty ? offer?.stock_qty : 100"
+                :max="offer?.stock_qty ? offer?.stock_qty + 1 : 100"
                 button-class="bg-secondary"
               />
             </div>
@@ -65,6 +65,7 @@
                 icon="mdi-cart-plus"
                 class="full-width"
                 label="Añadir"
+                @click="addToCart"
               />
             </div>
           </div>
@@ -88,27 +89,45 @@
 <script setup lang="ts">
 import { IShopOffer } from 'src/api';
 import { $nairdaApi } from 'src/boot/axios';
-import { handleImage, notificationHelper } from 'src/helpers';
-import { ref } from 'vue';
+import { goTo, handleImage, notificationHelper } from 'src/helpers';
+import { injectStrict, _shopCart } from 'src/injectables';
+import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import InputSpinner from 'src/components/forms/InputSpinner.vue';
+import { ROUTE_NAME } from 'src/router';
 /**
  * -----------------------------------------
  *	Setup
  * -----------------------------------------
  */
+const $cart = injectStrict(_shopCart);
 const $route = useRoute();
 /**
  * -----------------------------------------
  *	Data
  * -----------------------------------------
  */
-const cant = ref(1);
+const cartOffer = computed(() =>
+  $cart.order_offers.find((_o) => _o.offer_id === offer.value?.id)
+);
 const offer = ref<IShopOffer | undefined>(undefined);
+const qty = ref(1);
 /**
  * -----------------------------------------
  *	Methods
  * -----------------------------------------
+ */
+/**
+ * addToCart
+ */
+function addToCart() {
+  if (offer.value) {
+    $cart.addOrderOffer(offer.value, qty.value);
+    goTo(ROUTE_NAME.SHOP_CART);
+  }
+}
+/**
+ * loadOffer
  */
 async function loadOffer() {
   if ($route.params.id && !isNaN(Number($route.params.id))) {
@@ -116,6 +135,8 @@ async function loadOffer() {
     try {
       const resp = await $nairdaApi.ShopOffer.find(Number($route.params.id));
       offer.value = resp.data;
+      if (cartOffer.value && cartOffer.value.qty)
+        qty.value = cartOffer.value.qty;
     } catch (error) {
       notificationHelper.axiosError(error);
     }

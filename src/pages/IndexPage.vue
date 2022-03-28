@@ -9,7 +9,6 @@
           <home-slider />
         </div>
         <div class="col-sm-6 col-md-4 col-xs-12 q-gutter-y-sm">
-          <title-widget :data="{ title: 'Categorías' }" />
           <category-slider />
         </div>
         <div class="col-sm-6 col-md-4 col-xs-12 q-gutter-y-sm">

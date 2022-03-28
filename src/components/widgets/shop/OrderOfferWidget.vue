@@ -1,0 +1,87 @@
+<template>
+  <q-card v-if="orderOffer.offer">
+    <div
+      class="q-pa-sm float-right cursor-pointer text-negative"
+      @click="remove"
+    >
+      <q-icon size="1.2rem" name="mdi-delete" />
+    </div>
+    <q-card-section horizontal @click="goToOffer">
+      <q-avatar size="100px" rounded style="padding: 0.2rem">
+        <img
+          style="border-radius: 50%"
+          :src="handleImage(orderOffer.offer.image)"
+          :alt="orderOffer.offer?.title"
+        />
+      </q-avatar>
+      <div class="q-pa-md">
+        <div class="text-body1">
+          {{ orderOffer.offer.title }}
+          <q-chip class="glossy" :label="`x${orderOffer.qty}`" />
+        </div>
+        <div class="text-body1">
+          <q-chip
+            class="glossy"
+            :label="`$${Number(
+              orderOffer.qty * orderOffer.offer.sell_price
+            ).toFixed(2)}`"
+          />
+        </div>
+      </div>
+    </q-card-section>
+  </q-card>
+</template>
+
+<script setup lang="ts">
+import { IShopOrderOffer } from 'src/api';
+import { toRefs } from 'vue';
+import { Dialog } from 'quasar';
+import { handleImage } from 'src/helpers';
+import { useRouter } from 'vue-router';
+import { ROUTE_NAME } from 'src/router';
+import { injectStrict, _shopCart } from 'src/injectables';
+/**
+ * -----------------------------------------
+ *	Setup
+ * -----------------------------------------
+ */
+
+interface Props {
+  orderOffer: IShopOrderOffer;
+}
+const $cart = injectStrict(_shopCart);
+const $props = defineProps<Props>();
+const $router = useRouter();
+/**
+ * -----------------------------------------
+ *	Data
+ * -----------------------------------------
+ */
+
+const { orderOffer } = toRefs($props);
+/**
+ * -----------------------------------------
+ *	Methods
+ * -----------------------------------------
+ */
+/**
+ * goToOffer
+ */
+function goToOffer() {
+  void $router.push({
+    name: ROUTE_NAME.SHOP_OFFER,
+    params: { id: orderOffer.value.offer_id },
+  });
+}
+
+function remove() {
+  Dialog.create({
+    cancel: true,
+    ok: true,
+    title: 'Eliminar Oferta',
+    message: 'Desea eliminar la oferta?',
+  }).onOk(() => {
+    $cart.removeOrderOffer(Number(orderOffer.value.offer_id));
+  });
+}
+</script>

@@ -4,7 +4,7 @@
 
     <drawer-left />
 
-    <q-page-container class="bg-grey-5">
+    <q-page-container>
       <router-view />
     </q-page-container>
 
@@ -17,13 +17,19 @@ import AppFooter from './AppFooter.vue';
 import AppHeader from './Header.vue';
 import DrawerLeft from './DrawerLeft.vue';
 import { provide } from 'vue';
-import { _shopCategory, $shopCategory } from 'src/injectables';
+import {
+  _shopCategory,
+  $shopCategory,
+  _shopCart,
+  $shopCartInjectable,
+} from 'src/injectables';
 /**
  * -----------------------------------------
  *	Setup
  * -----------------------------------------
  */
 provide(_shopCategory, $shopCategory);
+provide(_shopCart, $shopCartInjectable);
 /**
  * -----------------------------------------
  *	Init
