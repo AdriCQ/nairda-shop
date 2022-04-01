@@ -6,9 +6,24 @@
         :key="`order-offer-${of.offer_id}-${oKey}`"
         :order-offer="of"
       />
+      <q-card class="no-box-shadow text-grey-9" v-if="orderOffers.length <= 0">
+        <q-card-section class="text-center">
+          <div class="text-h6">Su carrito está vacío</div>
+          <div
+            class="text-subtitle2 text-primary"
+            @click="goTo(ROUTE_NAME.HOME)"
+          >
+            Desea seguir buscando ofertas?
+          </div>
+        </q-card-section>
+      </q-card>
     </section>
     <!-- Float Button -->
-    <section class="fixed-bottom" style="margin-bottom: 3rem">
+    <section
+      class="fixed-bottom"
+      style="margin-bottom: 3rem"
+      v-if="orderOffers.length > 0"
+    >
       <q-card class="no-shadow-box">
         <q-card-section class="q-pa-xs">
           <q-btn
@@ -17,6 +32,7 @@
             class="full-width"
             icon="mdi-cart"
             label="Completar Pedido"
+            @click="goToCheckout"
           />
         </q-card-section>
       </q-card>
@@ -29,6 +45,8 @@
 import { injectStrict, _shopCart } from 'src/injectables';
 import { computed } from 'vue';
 import OrderOfferWidget from 'src/components/widgets/shop/OrderOfferWidget.vue';
+import { goTo } from 'src/helpers';
+import { ROUTE_NAME } from 'src/router';
 /**
  * -----------------------------------------
  *	Setup
@@ -41,4 +59,12 @@ const $cart = injectStrict(_shopCart);
  * -----------------------------------------
  */
 const orderOffers = computed(() => $cart.order_offers);
+/**
+ * -----------------------------------------
+ *	Methods
+ * -----------------------------------------
+ */
+function goToCheckout() {
+  if (orderOffers.value.length > 0) goTo(ROUTE_NAME.SHOP_CHECKOUT);
+}
 </script>

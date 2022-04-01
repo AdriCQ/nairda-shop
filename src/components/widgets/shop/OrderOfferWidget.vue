@@ -1,13 +1,18 @@
 <template>
-  <q-card v-if="orderOffer.offer">
+  <q-card v-if="orderOffer.offer" class="text-grey-9">
     <div
+      v-if="!dense"
       class="q-pa-sm float-right cursor-pointer text-negative"
       @click="remove"
     >
       <q-icon size="1.2rem" name="mdi-delete" />
     </div>
-    <q-card-section horizontal @click="goToOffer">
-      <q-avatar size="100px" rounded style="padding: 0.2rem">
+    <q-card-section
+      horizontal
+      @click="goToOffer"
+      :style="dense ? '' : 'min-height: 5.5rem'"
+    >
+      <q-avatar v-if="!dense" size="5.2rem" rounded style="padding: 0.2rem">
         <img
           style="border-radius: 50%"
           :src="handleImage(orderOffer.offer.image)"
@@ -15,17 +20,9 @@
         />
       </q-avatar>
       <div class="q-pa-md">
-        <div class="text-body1">
+        <div :class="dense ? 'text-subtitle2' : 'text-body1'">
           {{ orderOffer.offer.title }}
-          <q-chip class="glossy" :label="`x${orderOffer.qty}`" />
-        </div>
-        <div class="text-body1">
-          <q-chip
-            class="glossy"
-            :label="`$${Number(
-              orderOffer.qty * orderOffer.offer.sell_price
-            ).toFixed(2)}`"
-          />
+          <q-chip :dense="dense" class="glossy" :label="`x${orderOffer.qty}`" />
         </div>
       </div>
     </q-card-section>
@@ -48,6 +45,7 @@ import { injectStrict, _shopCart } from 'src/injectables';
 
 interface Props {
   orderOffer: IShopOrderOffer;
+  dense?: boolean;
 }
 const $cart = injectStrict(_shopCart);
 const $props = defineProps<Props>();
@@ -58,7 +56,7 @@ const $router = useRouter();
  * -----------------------------------------
  */
 
-const { orderOffer } = toRefs($props);
+const { orderOffer, dense } = toRefs($props);
 /**
  * -----------------------------------------
  *	Methods

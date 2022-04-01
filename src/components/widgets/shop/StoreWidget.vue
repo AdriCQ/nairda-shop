@@ -6,7 +6,7 @@
       spinner-size="82px"
       :ratio="4 / 3"
     />
-    <q-card-section class="q-pa-xs text-center">
+    <q-card-section class="q-pa-xs text-center store-widget-title">
       <div class="text-body1">{{ $props.data.title }}</div>
     </q-card-section>
   </q-card>
@@ -24,7 +24,6 @@ import { handleImage } from 'src/helpers';
  */
 const $props = defineProps<{ data: IShopStore }>();
 const $router = useRouter();
-
 function goToStore() {
   void $router.push({
     name: ROUTE_NAME.SHOP_STORE,
@@ -32,3 +31,8 @@ function goToStore() {
   });
 }
 </script>
+<style scoped>
+.store-widget-title {
+  min-height: 3.5rem;
+}
+</style>

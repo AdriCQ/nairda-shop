@@ -7,7 +7,7 @@
   >
     <q-list class="rounded-borders text-grey-9">
       <!-- HOME -->
-      <q-item clickable v-ripple>
+      <q-item clickable v-ripple :to="{ name: ROUTE_NAME.HOME }">
         <q-item-section avatar top>
           <q-avatar size="md" icon="mdi-home" text-color="primary" />
         </q-item-section>

@@ -4,7 +4,7 @@
 
     <drawer-left />
 
-    <q-page-container>
+    <q-page-container class="text-grey-9">
       <router-view />
     </q-page-container>
 
