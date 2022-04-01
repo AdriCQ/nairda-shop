@@ -35,6 +35,7 @@
           :expand-separator="false"
           v-for="(cat, cKey) in categories"
           :key="`cat-${cat.tag}-${cKey}`"
+          @click="goToctegory(cat.tag)"
         >
           <template v-slot:header>
             <q-item-section avatar top>
@@ -54,14 +55,28 @@
 
 <script lang="ts" setup>
 import { injectStrict, _app, _shopCategory } from 'src/injectables';
+import { ROUTE_NAME } from 'src/router';
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 
 const $app = injectStrict(_app);
 const $categories = injectStrict(_shopCategory);
+const $router = useRouter();
 
 const categories = computed(() => $categories.available);
 const drawerLeft = computed(() => $app.drawerLeft);
-
+/**
+ * goToctegory
+ * @param cat
+ */
+function goToctegory(cat: string) {
+  void $router.push({ name: ROUTE_NAME.SHOP_CATEGORY, query: { tag: cat } });
+  updateDrawerleft(false);
+}
+/**
+ * updateDrawerleft
+ * @param open
+ */
 function updateDrawerleft(open: boolean) {
   $app.drawerLeft = open;
 }

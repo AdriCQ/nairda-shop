@@ -1,3 +1,6 @@
+import { IShopOffer } from './shopOffer';
+import { IShopStore } from './shopStore';
+
 export interface IShopCategory {
   tag: string;
   title: string;
@@ -6,6 +9,8 @@ export interface IShopCategory {
   icons: {
     mdi?: string;
   };
+  stores?: IShopStore[];
+  offers?: IShopOffer[];
 }
 /**
  * IShopCategoryWithChild

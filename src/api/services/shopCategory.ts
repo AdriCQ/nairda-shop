@@ -21,4 +21,14 @@ export class ShopCategoryService {
   async available(type: 'stores' | 'offers' = 'offers') {
     return this.api.get<IShopCategory[]>(`api/shop/categories/${type}`);
   }
+  /**
+   * find
+   * @param p
+   * @returns
+   */
+  async find(p: { tag?: string; id?: number }) {
+    return this.api.get<IShopCategory>('api/shop/categories/find', {
+      params: p,
+    });
+  }
 }

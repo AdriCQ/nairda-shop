@@ -12,6 +12,16 @@ const route: RouteRecordRaw = {
       component: () => import('pages/shop/CartPage.vue'),
     },
     {
+      path: 'category',
+      name: ROUTE_NAME.SHOP_CATEGORY,
+      component: () => import('pages/shop/CategoryPage.vue'),
+    },
+    {
+      path: 'checkout',
+      name: ROUTE_NAME.SHOP_CHECKOUT,
+      component: () => import('pages/shop/CheckoutPage.vue'),
+    },
+    {
       path: 'offers/:id',
       name: ROUTE_NAME.SHOP_OFFER,
       component: () => import('pages/shop/OfferPage.vue'),

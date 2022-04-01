@@ -13,6 +13,7 @@
             color="primary"
             text-color="white"
             :icon="cat.icons.mdi"
+            @click="goToCategory(cat.tag)"
           />
         </Slide>
 
@@ -29,16 +30,27 @@ import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Navigation, Slide } from 'vue3-carousel';
 import { injectStrict, _shopCategory } from 'src/injectables';
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { ROUTE_NAME } from 'src/router';
 /**
  * -----------------------------------------
  * setup
  * -----------------------------------------
  */
 const $categories = injectStrict(_shopCategory);
+const $router = useRouter();
 /**
  * -----------------------------------------
  *	Data
  * -----------------------------------------
  */
 const categories = computed(() => $categories.available);
+
+/**
+ * goToctegory
+ * @param cat
+ */
+function goToCategory(cat: string) {
+  void $router.push({ name: ROUTE_NAME.SHOP_CATEGORY, query: { tag: cat } });
+}
 </script>
