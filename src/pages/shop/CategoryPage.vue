@@ -55,7 +55,6 @@ async function init(catTag: string) {
     stores.value = [];
     if (resp.data.offers) offers.value = resp.data.offers;
     if (resp.data.stores) stores.value = resp.data.stores;
-    console.log({ offers: offers.value, stores: stores.value });
   } catch (error) {
     notificationHelper.axiosError(error);
   }
