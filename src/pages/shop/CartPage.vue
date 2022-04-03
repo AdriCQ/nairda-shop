@@ -33,6 +33,7 @@
             icon="mdi-cart"
             label="Completar Pedido"
             @click="goToCheckout"
+            rounded
           />
         </q-card-section>
       </q-card>

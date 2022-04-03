@@ -65,6 +65,7 @@
                 icon="mdi-cart-plus"
                 class="full-width"
                 label="Añadir"
+                rounded
                 @click="addToCart"
               />
             </div>
@@ -77,6 +78,7 @@
               icon="mdi-cart-plus"
               class="full-width"
               label="Solicitar"
+              rounded
             />
           </div>
         </q-card-section>
