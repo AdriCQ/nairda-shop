@@ -11,6 +11,7 @@ interface IMaPSettings {
 
 class MapInjectable {
   private _center = ref<LatLng>(latLng(22.245531, -80.393699));
+  private _gpsPosition = ref<LatLng | undefined>(undefined);
   private _markers = ref<LatLng[]>([]);
   private _settings = ref<IMaPSettings>({
     multiple: false,
@@ -31,6 +32,12 @@ class MapInjectable {
   set center(center: LatLng) {
     this._center.value = center;
   }
+  get gpsPosition() {
+    return this._gpsPosition.value;
+  }
+  set gpsPosition(center: LatLng | undefined) {
+    this._gpsPosition.value = center;
+  }
   get markers() {
     return this._markers.value;
   }
@@ -48,6 +55,18 @@ class MapInjectable {
   }
   set zoom(zoom: number) {
     this._zoom.value = zoom;
+  }
+  /**
+   * -----------------------------------------
+   *	Mutations
+   * -----------------------------------------
+   */
+  getGpsPosition() {
+    this.gpsPosition = latLng(22.245531, -80.393699);
+    this.center = this.gpsPosition;
+    this.zoom = 16;
+    this.markers = [];
+    this.markers.push(this.gpsPosition);
   }
 }
 

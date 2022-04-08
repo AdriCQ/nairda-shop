@@ -60,12 +60,15 @@ const $route = useRoute();
  * -----------------------------------------
  */
 const store = ref<IShopStore | undefined>(undefined);
+
 /**
  * -----------------------------------------
  *	Methods
  * -----------------------------------------
  */
-
+/**
+ * init7
+ */
 async function init() {
   if ($route.params.id && !isNaN(Number($route.params.id))) {
     const storeId = Number($route.params.id);

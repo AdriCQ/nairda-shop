@@ -32,6 +32,7 @@ export interface IShopOrder {
   order_offers: IShopOrderOffer[];
   // Optionals
   customer?: IUserProfile;
+  message?: string;
   store?: IShopStore;
 }
 
@@ -49,6 +50,7 @@ export interface IShopOrderCreateRequest {
   shipping_address: string;
   shipping_coordinate: IMapCoordinate;
   shipping_time: string;
+  message?: string;
 }
 /**
  * IShopOrderUpdateRequest

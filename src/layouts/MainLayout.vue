@@ -22,13 +22,19 @@ import {
   $shopCategory,
   _shopCart,
   $shopCartInjectable,
+  $mapInjectable,
+  _map,
+  _shopOrder,
+  $shopOrderInjectable,
 } from 'src/injectables';
 /**
  * -----------------------------------------
  *	Setup
  * -----------------------------------------
  */
+provide(_map, $mapInjectable);
 provide(_shopCategory, $shopCategory);
+provide(_shopOrder, $shopOrderInjectable);
 provide(_shopCart, $shopCartInjectable);
 /**
  * -----------------------------------------

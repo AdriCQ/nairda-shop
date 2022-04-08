@@ -49,14 +49,6 @@
           type="text"
           label="Direccion de envío"
         />
-        <!-- <q-btn
-          color="primary"
-          icon="mdi-map-marker"
-          class="full-width q-mt-sm"
-          label="Marcar en Mapa"
-          @click="mapPopup = true"
-          rounded
-        /> -->
 
         <q-stepper-navigation class="q-gutter-x-sm">
           <q-btn
@@ -88,8 +80,15 @@
         :done="isDone('shipping_time')"
         class="dense q-py-sm"
       >
-        <q-date v-model="form.shipping_time" mask="YYYY-MM-DD HH:mm" />
-        <q-time v-model="form.shipping_time" mask="YYYY-MM-DD HH:mm" />
+        <q-toggle
+          v-model="toggleDateTime"
+          label="Ajustar Hora de entrega"
+          color="primary"
+        />
+        <template v-if="toggleDateTime">
+          <q-date v-model="form.shipping_time" mask="YYYY-MM-DD HH:mm" />
+          <q-time v-model="form.shipping_time" mask="YYYY-MM-DD HH:mm" />
+        </template>
 
         <q-stepper-navigation class="q-gutter-x-sm">
           <q-btn
@@ -103,7 +102,7 @@
           <q-btn
             @click="nextStep(false)"
             color="primary"
-            label="Siguiente"
+            :label="toggleDateTime ? 'Siguiente' : 'Omitir'"
             icon-right="mdi-arrow-right-bold"
             :disable="!canNext()"
             rounded
@@ -112,6 +111,44 @@
         </q-stepper-navigation>
       </q-step>
       <!-- / shipping_time -->
+
+      <!-- message -->
+      <q-step
+        name="message"
+        title="Mensaje"
+        icon="mdi-timer"
+        :done="isDone('message')"
+      >
+        <q-toggle
+          v-model="toggleMessage"
+          label="Enviar un mensaje extra"
+          color="primary"
+        />
+        <template v-if="toggleMessage">
+          <q-input v-model="form.message" type="textarea" label="Mensaje" />
+        </template>
+
+        <q-stepper-navigation class="q-gutter-x-sm">
+          <q-btn
+            @click="prevStep"
+            color="primary"
+            label="Atras"
+            icon="mdi-arrow-left-bold"
+            rounded
+            outline
+          />
+          <q-btn
+            @click="nextStep(false)"
+            color="primary"
+            :label="toggleMessage ? 'Siguiente' : 'Omitir'"
+            icon-right="mdi-arrow-right-bold"
+            :disable="!canNext()"
+            rounded
+            outline
+          />
+        </q-stepper-navigation>
+      </q-step>
+      <!-- / summary -->
 
       <!-- summary -->
       <q-step
@@ -145,7 +182,7 @@
     <!-- Map Dialog -->
     <q-dialog v-model="mapPopup" maximized>
       <q-card>
-        <map-widget @add-position="onMapAddPosition" />
+        <map-widget @confirm="onMapConfirm" />
       </q-card>
     </q-dialog>
     <!-- / Map Dialog -->
@@ -166,7 +203,12 @@ import { LatLng } from 'leaflet';
  * -----------------------------------------
  */
 
-type IStepName = 'details' | 'shipping_address' | 'shipping_time' | 'summary';
+type IStepName =
+  | 'details'
+  | 'shipping_address'
+  | 'shipping_time'
+  | 'message'
+  | 'summary';
 
 const $cart = injectStrict(_shopCart);
 /**
@@ -184,6 +226,7 @@ const form = ref<IShopOrderCreateRequest>({
   },
   shipping_time: '',
   store_id: 1,
+  message: undefined,
 });
 const mapPopup = ref(false);
 const orderOffers = computed(() => $cart.order_offers);
@@ -192,8 +235,11 @@ const stepOrder: IStepName[] = [
   'details',
   'shipping_address',
   'shipping_time',
+  'message',
   'summary',
 ];
+const toggleDateTime = ref(false);
+const toggleMessage = ref(false);
 /**
  * -----------------------------------------
  *	Methods
@@ -226,15 +272,15 @@ function nextStep(force = false) {
   }
 }
 /**
- * onMapAddPosition
- * @param pos
+ * onMapConfirm
+ * @param markers
  */
-function onMapAddPosition(pos: LatLng) {
-  console.log(pos);
+function onMapConfirm(markers: LatLng[]) {
+  console.log(markers);
   setTimeout(() => {
     mapPopup.value = false;
     nextStep(true);
-  }, 500);
+  }, 100);
 }
 /**
  * prevStep

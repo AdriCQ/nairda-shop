@@ -10,19 +10,23 @@
     @click="addMarker"
     @update:center="doMoveCenter"
     @update:zoom="doMoveZoom"
+    :key="`map-key-${zoom}-${center.lat}-${center.lng}`"
   >
     <l-tile-layer :url="MAP_URL" :attribution="ATTRIBUTION" />
-    <!-- <l-control>
+    <l-control>
       <q-btn
-        v-if="!settings.noEdit"
+        color="primary"
+        icon="mdi-check"
+        label="Confirmar"
+        @click="confirm"
+      />
+      <q-btn
         color="white"
-        :text-color="`${currentGPSPosition ? 'info' : 'black'}`"
-        :icon="`${
-          currentGPSPosition ? 'mdi-crosshairs-gps' : 'mdi-crosshairs'
-        }`"
+        :text-color="`${gpsPosition ? 'info' : 'black'}`"
+        :icon="`${gpsPosition ? 'mdi-crosshairs-gps' : 'mdi-crosshairs'}`"
         @click="getCurrentGPSPosition"
       />
-    </l-control> -->
+    </l-control>
 
     <l-marker
       :key="`marker-${markerKey}`"
@@ -37,7 +41,7 @@ import { computed, defineComponent } from 'vue';
 import 'leaflet/dist/leaflet.css';
 import { LatLng, LocationEvent, Icon } from 'leaflet';
 import {
-  // LControl,
+  LControl,
   // LControlZoom,
   LMap,
   LMarker,
@@ -75,13 +79,13 @@ const MAP_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 export default defineComponent({
   name: 'MapLayout',
   components: {
-    // LControl,
+    LControl,
     // LControlZoom,
     LMap,
     LMarker,
     LTileLayer,
   },
-  emits: ['add-position'],
+  emits: ['add-position', 'current-gps', 'confirm'],
   setup($props, { emit }) {
     const $mapStore = injectStrict(_map);
     /**
@@ -90,6 +94,7 @@ export default defineComponent({
      * -----------------------------------------
      */
     const center = computed(() => $mapStore.center);
+    const gpsPosition = computed(() => $mapStore.gpsPosition);
     const markers = computed(() => $mapStore.markers);
     const settings = computed(() => $mapStore.settings);
     const zoom = computed(() => $mapStore.zoom);
@@ -111,6 +116,9 @@ export default defineComponent({
         emit('add-position', (event as LocationEvent).latlng);
       }
     }
+    function confirm() {
+      emit('confirm', markers.value);
+    }
     /**
      * doMoveCenter
      * @param _center
@@ -128,19 +136,22 @@ export default defineComponent({
     /**
      * getCurrentGPSPosition
      */
-    async function getCurrentGPSPosition() {
-      console.log('get Current gps pos');
+    function getCurrentGPSPosition() {
+      $mapStore.getGpsPosition();
+      emit('current-gps', gpsPosition.value);
     }
 
     return {
       ATTRIBUTION,
       MAP_URL,
       center,
+      gpsPosition,
       settings,
       markers,
       zoom,
       // Methods
       addMarker,
+      confirm,
       doMoveCenter,
       doMoveZoom,
       getCurrentGPSPosition,

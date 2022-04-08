@@ -23,6 +23,7 @@ export * from './map';
  */
 export * from './shop/category';
 export * from './shop/cart';
+export * from './shop/order';
 /**
  * User
  */
