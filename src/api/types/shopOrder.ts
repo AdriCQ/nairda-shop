@@ -46,7 +46,7 @@ export interface IShopOrder {
  */
 export interface IShopOrderCreateRequest {
   store_id: number;
-  order_offers: Array<{ qty: number; offer_id: number }>;
+  order_offers: Array<IShopOrderOffer>;
   shipping_address: string;
   shipping_coordinate: IMapCoordinate;
   shipping_time: string;

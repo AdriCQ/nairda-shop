@@ -1,7 +1,11 @@
 import { AxiosInstance } from 'axios';
 
 import { Paginated } from '..';
-import { IShopOrder, IShopOrderCreateRequest, IShopOrderUpdateRequest } from '../types/shopOrder';
+import {
+  IShopOrder,
+  IShopOrderCreateRequest,
+  IShopOrderUpdateRequest,
+} from '../types/shopOrder';
 /**
  * ShopOrderService
  */
@@ -19,9 +23,17 @@ export class ShopOrderService {
     return this.api.post<IShopOrder>('/api/shop/orders', create);
   }
   /**
-  * destroy
-  * @param orderId number
-  */
+   * createMass
+   * @param mass
+   * @returns
+   */
+  async createMass(mass: Omit<IShopOrderCreateRequest, 'store_id'>) {
+    return this.api.post<IShopOrder[]>('/api/shop/orders/mass', mass);
+  }
+  /**
+   * destroy
+   * @param orderId number
+   */
   async destroy(orderId: number) {
     return this.api.delete<boolean>(`/api/shop/orders/${orderId}`);
   }
@@ -43,7 +55,9 @@ export class ShopOrderService {
    * @param storeId number
    */
   async listByStore(storeId: number) {
-    return this.api.get<Paginated<IShopOrder>>(`/api/shop/orders/store/${storeId}`);
+    return this.api.get<Paginated<IShopOrder>>(
+      `/api/shop/orders/store/${storeId}`
+    );
   }
   /**
    * update

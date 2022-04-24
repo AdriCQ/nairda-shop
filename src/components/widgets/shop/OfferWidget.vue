@@ -8,6 +8,13 @@
       <div class="absolute-top-right" style="padding: 0.2rem">
         ${{ Number(data.sell_price).toFixed(2) }}
       </div>
+      <div
+        class="absolute-top-left"
+        style="padding: 0.2rem"
+        v-if="data.stock_type === 'SOLD_OUT'"
+      >
+        AGOTADO
+      </div>
     </q-img>
     <q-card-section class="text-center q-pa-xs offer-widget-title">
       <div class="text-body1">{{ data.title }}</div>

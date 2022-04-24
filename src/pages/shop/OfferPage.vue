@@ -45,9 +45,9 @@
     </section>
 
     <!-- Footer -->
-    <section class="fixed-bottom" style="margin-bottom: 3rem" v-if="offer">
+    <section class="fixed-bottom" style="margin-bottom: 3rem" v-if="footerMenu">
       <q-card>
-        <q-card-section class="bg-secondary q-pa-none">
+        <q-card-section class="q-pa-none">
           <div class="row" v-if="offer?.type === 'PRODUCT'">
             <div class="col">
               <input-spinner
@@ -60,12 +60,10 @@
             <div class="col">
               <q-btn
                 color="primary"
-                text-color="dark"
                 style="height: 2.5rem"
                 icon="mdi-cart-plus"
                 class="full-width"
                 label="Añadir"
-                rounded
                 @click="addToCart"
               />
             </div>
@@ -73,7 +71,6 @@
           <div v-else>
             <q-btn
               color="primary"
-              text-color="dark"
               style="height: 2.5rem"
               icon="mdi-cart-plus"
               class="full-width"
@@ -111,6 +108,11 @@ const $route = useRoute();
  */
 const cartOffer = computed(() =>
   $cart.order_offers.find((_o) => _o.offer_id === offer.value?.id)
+);
+const footerMenu = computed(
+  () =>
+    (offer.value && offer.value.type === 'SERVICE') ||
+    (offer.value?.stock_type === 'LIMITED' && offer.value.stock_qty > 0)
 );
 const offer = ref<IShopOffer | undefined>(undefined);
 const qty = ref(1);

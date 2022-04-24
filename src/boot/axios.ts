@@ -1,6 +1,7 @@
 import { boot } from 'quasar/wrappers';
 import axios, { AxiosInstance, AxiosRequestHeaders } from 'axios';
 import NairdaApi from 'src/api';
+import { $user } from 'src/injectables';
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
@@ -32,7 +33,7 @@ export default boot(({ app }) => {
     /* Check if authorization is set */
     if (!(_request.headers as AxiosRequestHeaders)['Authorization']) {
       /* Check if the user is authenticated to send Bearer token */
-      const token = '2|ebxFLK0ppsvxwc4IyvmDoe1vTPKmZLfDC0nnhBga';
+      const token = $user.apiToken;
       if (token && token.length > 0) {
         (_request.headers as AxiosRequestHeaders).Authorization =
           'Bearer ' + token;

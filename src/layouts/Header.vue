@@ -1,6 +1,6 @@
 <template>
   <q-header elevated>
-    <q-toolbar class="bg-secondary text-white">
+    <q-toolbar class="bg-primary">
       <q-btn
         flat
         dense
@@ -10,7 +10,7 @@
         @click="toggleDrawerLeft"
       />
 
-      <q-toolbar-title class="text-white">
+      <q-toolbar-title>
         <q-input
           v-model="search"
           type="search"

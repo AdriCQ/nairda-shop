@@ -7,13 +7,10 @@
         :order-offer="of"
       />
       <q-card class="no-box-shadow text-grey-9" v-if="orderOffers.length <= 0">
-        <q-card-section class="text-center">
+        <q-card-section class="text-center" @click="goTo(ROUTE_NAME.HOME)">
           <div class="text-h6">Su carrito está vacío</div>
-          <div
-            class="text-subtitle2 text-primary"
-            @click="goTo(ROUTE_NAME.HOME)"
-          >
-            Desea seguir buscando ofertas?
+          <div class="text-subtitle2 text-primary">
+            ¿Desea seguir buscando ofertas?
           </div>
         </q-card-section>
       </q-card>

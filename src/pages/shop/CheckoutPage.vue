@@ -153,7 +153,7 @@
       <!-- summary -->
       <q-step
         name="summary"
-        title="Resúmen"
+        title="Finalizar"
         icon="mdi-timer"
         :done="isDone('summary')"
       >
@@ -167,7 +167,7 @@
             outline
           />
           <q-btn
-            @click="nextStep(false)"
+            @click="finish"
             color="primary"
             label="Comprar"
             icon-right="mdi-arrow-right-bold"
@@ -193,7 +193,7 @@
 import OrderOfferWidget from 'components/widgets/shop/OrderOfferWidget.vue';
 import MapWidget from 'src/components/widgets/MapWidget.vue';
 import { computed } from '@vue/reactivity';
-import { injectStrict, _shopCart } from 'src/injectables';
+import { injectStrict, _shopCart, _shopOrder } from 'src/injectables';
 import { ref } from 'vue';
 import { IShopOrderCreateRequest } from 'src/api';
 import { LatLng } from 'leaflet';
@@ -211,6 +211,7 @@ type IStepName =
   | 'summary';
 
 const $cart = injectStrict(_shopCart);
+const $order = injectStrict(_shopOrder);
 /**
  * -----------------------------------------
  *	Data
@@ -251,6 +252,23 @@ const toggleMessage = ref(false);
 function canNext() {
   return true;
 }
+/**
+ * finish
+ */
+async function finish() {
+  const orderMass: Omit<IShopOrderCreateRequest, 'store_id'> = {
+    order_offers: orderOffers.value,
+    shipping_address: form.value.shipping_address,
+    shipping_coordinate: form.value.shipping_coordinate,
+    shipping_time: form.value.shipping_time,
+    message: form.value.message,
+  };
+  await $order.createMassAction(orderMass);
+}
+/**
+ * isDone
+ * @param checkStep
+ */
 function isDone(checkStep: IStepName) {
   const currentIndex = stepOrder.findIndex((_s) => _s === step.value);
   const checkIndex = stepOrder.findIndex((_s) => _s === checkStep);

@@ -1,9 +1,9 @@
 <template>
-  <q-footer elevated class="bg-secondary">
+  <q-footer elevated class="bg-primary">
     <q-tabs
       align="justify"
       indicator-color="transparent"
-      active-color="primary"
+      active-color="secondary"
       id="tab-buttons"
       no-caps
     >
@@ -15,7 +15,7 @@
       </q-route-tab>
       <q-route-tab exact :to="{ name: ROUTE_NAME.SHOP_CART }">
         <q-icon name="mdi-cart-outline" size="1.6rem" />
-        <q-badge color="primary" floating v-if="countCart && countCart > 0">
+        <q-badge color="dark" floating v-if="countCart && countCart > 0">
           {{ countCart }}
         </q-badge>
       </q-route-tab>

@@ -30,7 +30,6 @@
         <q-btn
           class="full-width"
           color="primary"
-          text-color="dark"
           label="Iniciar"
           type="submit"
         />
