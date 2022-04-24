@@ -4,6 +4,7 @@ import {
   IPublicityAnnouncementCreateRequest,
   IPublicityAnnouncementUpdateRequest,
 } from '../types/publicity';
+import { csrfToken } from './csrf';
 
 /**
  * PublicityAnnouncementService
@@ -24,6 +25,7 @@ export class PublicityAnnouncementService {
    * @returns
    */
   async create(create: IPublicityAnnouncementCreateRequest) {
+    await csrfToken(this.api);
     return this.api.post<IPublicityAnnouncement>(this.API_PATH, create);
   }
   /**
@@ -47,6 +49,7 @@ export class PublicityAnnouncementService {
    * @returns
    */
   async remove(id: number) {
+    await csrfToken(this.api);
     return this.api.delete(`${this.API_PATH}/${id}`);
   }
   /**
@@ -55,6 +58,7 @@ export class PublicityAnnouncementService {
    * @returns
    */
   async update(ann: IPublicityAnnouncementUpdateRequest) {
+    await csrfToken(this.api);
     return this.api.patch<IPublicityAnnouncement>(`${this.API_PATH}/${ann.id}`);
   }
 }

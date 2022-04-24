@@ -6,6 +6,7 @@ import {
   IShopOrderCreateRequest,
   IShopOrderUpdateRequest,
 } from '../types/shopOrder';
+import { csrfToken } from './csrf';
 /**
  * ShopOrderService
  */
@@ -20,6 +21,7 @@ export class ShopOrderService {
    * @param create IShopOrderCreateRequest
    */
   async create(create: IShopOrderCreateRequest) {
+    await csrfToken(this.api);
     return this.api.post<IShopOrder>('/api/shop/orders', create);
   }
   /**
@@ -28,6 +30,7 @@ export class ShopOrderService {
    * @returns
    */
   async createMass(mass: Omit<IShopOrderCreateRequest, 'store_id'>) {
+    await csrfToken(this.api);
     return this.api.post<IShopOrder[]>('/api/shop/orders/mass', mass);
   }
   /**
@@ -35,6 +38,7 @@ export class ShopOrderService {
    * @param orderId number
    */
   async destroy(orderId: number) {
+    await csrfToken(this.api);
     return this.api.delete<boolean>(`/api/shop/orders/${orderId}`);
   }
   /**
@@ -65,6 +69,7 @@ export class ShopOrderService {
    * @param update Partial<IShopOrder>
    */
   async updateStatus(offerId: number, update: IShopOrderUpdateRequest) {
+    await csrfToken(this.api);
     return this.api.patch<IShopOrder>(`/api/shop/offers/${offerId}`, update);
   }
 }

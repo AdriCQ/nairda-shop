@@ -7,6 +7,7 @@ import {
   IShopOfferFilterrequest,
   IShopOfferUpdateRequest,
 } from '../types/shopOffer';
+import { csrfToken } from './csrf';
 
 /**
  * ShopOfferService
@@ -22,6 +23,7 @@ export class ShopOfferService {
    * @param createRequest IShopOfferCreateRequest
    */
   async create(createRequest: IShopOfferCreateRequest) {
+    await csrfToken(this.api);
     return this.api.post<IShopOffer>('/api/shop/offers', createRequest);
   }
   /**
@@ -29,6 +31,7 @@ export class ShopOfferService {
    * @param offerId number
    */
   async destroy(offerId: number) {
+    await csrfToken(this.api);
     return this.api.delete<boolean>(`/api/shop/offers/${offerId}`);
   }
   /**
@@ -58,6 +61,7 @@ export class ShopOfferService {
    * @param update Partial<IShopOffer>
    */
   async update(offerId: number, update: IShopOfferUpdateRequest) {
+    await csrfToken(this.api);
     return this.api.patch<IShopOffer, AxiosResponse<IShopOffer>>(
       `/api/shop/offers/${offerId}`,
       update
