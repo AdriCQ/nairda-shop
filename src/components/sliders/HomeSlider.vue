@@ -1,21 +1,15 @@
 <template>
   <q-carousel arrows infinite autoplay animated v-model="slide">
-    <q-carousel-slide name="first" img-src="images/default.jpg">
+    <q-carousel-slide
+      @click="goToLink(ann)"
+      v-for="(ann, annKey) in $props.data"
+      :key="`ann-${annKey}`"
+      :name="`ann-${annKey}`"
+      :img-src="image(ann)"
+    >
       <div class="absolute-bottom custom-caption">
-        <div class="text-h6">First stop</div>
-        <div class="text-subtitle1">Mountains</div>
-      </div>
-    </q-carousel-slide>
-    <q-carousel-slide name="second" img-src="images/default.jpg">
-      <div class="absolute-bottom custom-caption">
-        <div class="text-h6">Second stop</div>
-        <div class="text-subtitle1">Famous City</div>
-      </div>
-    </q-carousel-slide>
-    <q-carousel-slide name="third" img-src="images/default.jpg">
-      <div class="absolute-bottom custom-caption">
-        <div class="text-h6">Third stop</div>
-        <div class="text-subtitle1">Famous Bridge</div>
+        <div class="text-h6">{{ ann.title }}</div>
+        <div class="text-subtitle1" v-if="ann.subtitle">{{ ann.subtitle }}</div>
       </div>
     </q-carousel-slide>
   </q-carousel>
@@ -23,8 +17,40 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { IPublicityAnnouncement } from 'src/api';
+import { handleImage } from 'src/helpers';
+import { useRouter } from 'vue-router';
+import { ROUTE_NAME } from 'src/router';
 
-const slide = ref('first');
+const $props = defineProps<{ data: IPublicityAnnouncement[] }>();
+const $router = useRouter();
+
+const slide = ref('');
+
+function image(ann: IPublicityAnnouncement): string | undefined {
+  if (ann.image) return handleImage(ann.image);
+  if (ann.related && ann.related.model?.image)
+    return handleImage(ann.related.model?.image);
+}
+
+function goToLink(ann: IPublicityAnnouncement) {
+  if (ann.related && ann.related.model && ann.related.model.id) {
+    switch (ann.related.type) {
+      case 'ShopStore':
+        void $router.push({
+          name: ROUTE_NAME.SHOP_STORE,
+          params: { id: ann.related.model.id },
+        });
+        break;
+      case 'ShopOffer':
+        void $router.push({
+          name: ROUTE_NAME.SHOP_OFFER,
+          params: { id: ann.related.model.id },
+        });
+        break;
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

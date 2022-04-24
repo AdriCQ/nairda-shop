@@ -1,7 +1,11 @@
 <template>
-  <carousel :items-to-show="3" :wrap-around="true">
-    <slide v-for="(d, key) in $props.data" :key="`slider-offer-${d.id}-${key}`">
-      <offer-widget :data="d" />
+  <carousel :items-to-show="2" :wrap-around="true">
+    <slide
+      v-for="(d, key) in $props.data"
+      :key="`slider-offer-${d.id}-${key}`"
+      class="q-px-xs"
+    >
+      <offer-widget class="full-width" :data="d" />
     </slide>
 
     <template #addons>
