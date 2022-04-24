@@ -33,6 +33,17 @@ export type IShopStoreCreateRequest = {
   readonly open?: boolean;
 };
 /**
+ * IShopStoreFilter
+ */
+export interface IShopStoreFilterRequest {
+  where?: {
+    open?: boolean;
+    title?: string;
+    description?: string;
+  };
+  limit?: number;
+}
+/**
  * @type IShopStoreUpdateRequest
  */
 export type IShopStoreUpdateRequest = Partial<IShopStoreCreateRequest>;

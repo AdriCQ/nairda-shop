@@ -43,17 +43,14 @@ import { ref } from 'vue';
 import { notificationHelper } from 'src/helpers';
 import { IUserAuthLoginRequest } from 'src/api';
 import { injectStrict, _user } from 'src/injectables';
-import { useRouter } from 'vue-router';
-import { ROUTE_NAME } from 'src/router';
 
 /**
  * -----------------------------------------
  *	Init
  * -----------------------------------------
  */
-const $emit = defineEmits<{ (e: 'toggle'): void }>();
+const $emit = defineEmits<{ (e: 'toggle'): void; (e: 'auth'): void }>();
 const $user = injectStrict(_user);
-const $router = useRouter();
 /**
  * -----------------------------------------
  *	Data
@@ -78,8 +75,8 @@ async function login() {
   notificationHelper.loading();
   try {
     await $user.loginAction(loginForm.value);
-    void $router.push({ name: ROUTE_NAME.HOME });
     notificationHelper.success([`Bienvenido ${$user.profile?.first_name}`]);
+    $emit('auth');
   } catch (error) {
     notificationHelper.error(['Credenciales incorrectas']);
   }

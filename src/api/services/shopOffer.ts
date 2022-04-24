@@ -4,6 +4,7 @@ import { Paginated } from '../types/responses';
 import {
   IShopOffer,
   IShopOfferCreateRequest,
+  IShopOfferFilterrequest,
   IShopOfferUpdateRequest,
 } from '../types/shopOffer';
 
@@ -29,6 +30,14 @@ export class ShopOfferService {
    */
   async destroy(offerId: number) {
     return this.api.delete<boolean>(`/api/shop/offers/${offerId}`);
+  }
+  /**
+   * filter
+   * @param params
+   * @returns
+   */
+  async filter(params: IShopOfferFilterrequest) {
+    return this.api.get<IShopOffer[]>('/api/shop/offers/filter', { params });
   }
   /**
    * find

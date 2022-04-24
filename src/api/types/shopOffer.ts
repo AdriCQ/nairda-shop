@@ -39,6 +39,21 @@ export type IShopOfferCreateRequest = {
   readonly store_id: number;
 };
 /**
+ * IShopOfferFilterrequest
+ */
+export interface IShopOfferFilterrequest {
+  where?: {
+    type?: IShopOfferType;
+    stock_type?: IShopOfferStockType;
+    title?: string;
+    description?: string;
+    price_lt?: number;
+    price_gt?: number;
+    price_et?: number;
+  };
+  limit?: number;
+}
+/**
  * IShopOfferUpdateRequest
  */
 export type IShopOfferUpdateRequest = Omit<

@@ -1,7 +1,12 @@
 import { AxiosInstance } from 'axios';
 
 import { Paginated } from '../types/responses';
-import { IShopStore, IShopStoreCreateRequest, IShopStoreUpdateRequest } from '../types/shopStore';
+import {
+  IShopStore,
+  IShopStoreCreateRequest,
+  IShopStoreFilterRequest,
+  IShopStoreUpdateRequest,
+} from '../types/shopStore';
 
 import { csrfToken } from './csrf';
 /**
@@ -29,7 +34,15 @@ export class ShopStoreService {
    */
   async destroy(storeId: number) {
     await csrfToken(this.api);
-    return this.api.delete<boolean>(`/api/shop/stores/${storeId}`)
+    return this.api.delete<boolean>(`/api/shop/stores/${storeId}`);
+  }
+  /**
+   * filter
+   * @param storeId number
+   * @returns AxiosPromise<IShopStore>
+   */
+  async filter(params: IShopStoreFilterRequest) {
+    return this.api.get<IShopStore[]>('/api/shop/stores/filter', { params });
   }
   /**
    * find

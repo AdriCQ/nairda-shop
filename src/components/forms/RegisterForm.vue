@@ -62,7 +62,7 @@ import { notificationHelper } from 'src/helpers';
  *	Setup
  * -----------------------------------------
  */
-const $emit = defineEmits<{ (e: 'toggle'): void }>();
+const $emit = defineEmits<{ (e: 'toggle'): void; (e: 'auth'): void }>();
 const $user = injectStrict(_user);
 /**
  * -----------------------------------------
@@ -89,6 +89,7 @@ async function onSubmit() {
   notificationHelper.loading();
   try {
     await $user.registerAction(form.value);
+    $emit('auth');
   } catch (error) {
     notificationHelper.axiosError(error, 'No pudimos completar el registro');
   }
