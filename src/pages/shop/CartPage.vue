@@ -37,18 +37,18 @@
     </section>
     <!-- / Float Button -->
 
-    <q-dialog v-model="authDialog" maximized>
+    <!-- <q-dialog v-model="authDialog" maximized>
       <auth-widget @auth="authDialog = false" />
-    </q-dialog>
+    </q-dialog> -->
   </q-page>
 </template>
 
 <script setup lang="ts">
 import { injectStrict, _shopCart } from 'src/injectables';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import OrderOfferWidget from 'src/components/widgets/shop/OrderOfferWidget.vue';
-import AuthWidget from 'components/widgets/AuthWidget.vue';
-import { goTo, isAuth } from 'src/helpers';
+// import AuthWidget from 'components/widgets/AuthWidget.vue';
+import { goTo } from 'src/helpers';
 import { ROUTE_NAME } from 'src/router';
 /**
  * -----------------------------------------
@@ -61,7 +61,7 @@ const $cart = injectStrict(_shopCart);
  *	Data
  * -----------------------------------------
  */
-const authDialog = ref(false);
+// const authDialog = ref(false);
 const orderOffers = computed(() => $cart.order_offers);
 /**
  * -----------------------------------------
@@ -69,8 +69,6 @@ const orderOffers = computed(() => $cart.order_offers);
  * -----------------------------------------
  */
 function goToCheckout() {
-  if (!isAuth()) {
-    authDialog.value = true;
-  } else if (orderOffers.value.length > 0) goTo(ROUTE_NAME.SHOP_CHECKOUT);
+  if (orderOffers.value.length > 0) goTo(ROUTE_NAME.SHOP_CHECKOUT);
 }
 </script>

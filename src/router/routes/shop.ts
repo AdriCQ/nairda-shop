@@ -1,7 +1,7 @@
 import MainLayoutVue from 'src/layouts/MainLayout.vue';
 import { RouteRecordRaw } from 'vue-router';
 import { ROUTE_NAME } from '../names';
-import { authGuard } from './guards';
+// import { authGuard } from './guards';
 
 const route: RouteRecordRaw = {
   path: '/shop',
@@ -20,7 +20,7 @@ const route: RouteRecordRaw = {
     {
       path: 'checkout',
       name: ROUTE_NAME.SHOP_CHECKOUT,
-      beforeEnter: authGuard,
+      // beforeEnter: authGuard,
       component: () => import('pages/shop/CheckoutPage.vue'),
     },
     {

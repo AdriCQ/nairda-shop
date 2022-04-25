@@ -32,7 +32,7 @@ class OrderInjectable {
     try {
       const resp = await $nairdaApi.ShopOrder.createMass(order);
       this.myOrders.push(...resp.data);
-      console.log(this.myOrders);
+      console.log(resp.data);
     } catch (error) {
       notificationHelper.axiosError(error, 'No se pudo crear la orden');
     }

@@ -7,6 +7,18 @@
       animated
       class="q-pa-none"
     >
+      <!-- Auth -->
+      <q-step
+        v-if="!isAuth()"
+        name="auth"
+        title="Usuario"
+        icon="mdi-account"
+        class="dense q-py-sm"
+        :done="isDone('auth')"
+      >
+        <auth-widget @auth="nextStep()" />
+      </q-step>
+      <!-- / Auth -->
       <!-- Details -->
       <q-step
         name="details"
@@ -192,11 +204,13 @@
 <script setup lang="ts">
 import OrderOfferWidget from 'components/widgets/shop/OrderOfferWidget.vue';
 import MapWidget from 'src/components/widgets/MapWidget.vue';
+import AuthWidget from 'src/components/widgets/AuthWidget.vue';
 import { computed } from '@vue/reactivity';
 import { injectStrict, _shopCart, _shopOrder } from 'src/injectables';
 import { ref } from 'vue';
 import { IShopOrderCreateRequest } from 'src/api';
 import { LatLng } from 'leaflet';
+import { isAuth } from 'src/helpers';
 /**
  * -----------------------------------------
  *	Setup
@@ -204,6 +218,7 @@ import { LatLng } from 'leaflet';
  */
 
 type IStepName =
+  | 'auth'
   | 'details'
   | 'shipping_address'
   | 'shipping_time'
@@ -231,8 +246,11 @@ const form = ref<IShopOrderCreateRequest>({
 });
 const mapPopup = ref(false);
 const orderOffers = computed(() => $cart.order_offers);
-const step = ref<IStepName>('details');
+const step = ref<IStepName>('auth');
+if (isAuth()) step.value = 'details';
+
 const stepOrder: IStepName[] = [
+  'auth',
   'details',
   'shipping_address',
   'shipping_time',
@@ -256,14 +274,18 @@ function canNext() {
  * finish
  */
 async function finish() {
-  const orderMass: Omit<IShopOrderCreateRequest, 'store_id'> = {
-    order_offers: orderOffers.value,
-    shipping_address: form.value.shipping_address,
-    shipping_coordinate: form.value.shipping_coordinate,
-    shipping_time: form.value.shipping_time,
-    message: form.value.message,
-  };
-  await $order.createMassAction(orderMass);
+  if (!isAuth()) {
+    step.value = 'auth';
+  } else {
+    const orderMass: Omit<IShopOrderCreateRequest, 'store_id'> = {
+      order_offers: orderOffers.value,
+      shipping_address: form.value.shipping_address,
+      shipping_coordinate: form.value.shipping_coordinate,
+      shipping_time: form.value.shipping_time,
+      message: form.value.message,
+    };
+    await $order.createMassAction(orderMass);
+  }
 }
 /**
  * isDone
