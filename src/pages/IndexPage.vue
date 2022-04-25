@@ -29,7 +29,7 @@
           <div>
             <offer-group :data="offers.slice(0, 4)" />
           </div>
-          <div v-if="offers.slice(4, offers.length).length">
+          <div v-if="offers.slice(4, offers.length).length > 2">
             <offers-slider :data="offers.slice(4, offers.length)" />
           </div>
         </div>
@@ -40,11 +40,11 @@
           class="col-sm-6 col-md-4 col-xs-12 q-gutter-y-sm"
           v-if="stores.length"
         >
-          <title-widget :data="{ title: 'Afiliados' }" />
+          <title-widget :data="{ title: 'Tiendas Destacadas' }" />
           <div>
             <store-group :data="stores.slice(0, 4)" />
           </div>
-          <div v-if="stores.slice(4, stores.length).length">
+          <div v-if="stores.slice(4, stores.length).length > 2">
             <stores-slider :data="stores.slice(4, stores.length)" />
           </div>
         </div>

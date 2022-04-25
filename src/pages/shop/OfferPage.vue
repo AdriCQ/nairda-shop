@@ -14,6 +14,15 @@
           :alt="offer.title"
         >
           <div
+            class="absolute-top-left"
+            style="padding: 0px; background-color: transparent"
+          >
+            <q-chip dense>
+              <span>{{ offer.rating }}</span>
+              <q-icon name="mdi-star" color="orange" size="1rem" />
+            </q-chip>
+          </div>
+          <div
             class="absolute-bottom-right"
             v-if="offer.category"
             style="padding: 0.2rem"
@@ -21,17 +30,16 @@
             <q-icon class="q-mr-sm" :name="offer.category.icons.mdi" />
             {{ offer.category?.title }}
           </div>
-
-          <div class="absolute-top-left" style="padding: 0.2rem">
-            {{ offer.type === 'PRODUCT' ? 'Producto' : 'Servicio' }}
-          </div>
           <div
-            class="absolute-top-right"
+            class="absolute-bottom-left"
+            v-if="offer.stock_type === 'SOLD_OUT'"
             style="padding: 0.2rem"
-            v-if="offer.rating > 0"
           >
-            <span>{{ offer.rating }}</span>
-            <q-icon size="sm" class="q-ml-xs" name="mdi-star" color="primary" />
+            AGOTADO
+          </div>
+
+          <div class="absolute-top-right" style="padding: 0.2rem">
+            {{ offer.type === 'PRODUCT' ? 'Producto' : 'Servicio' }}
           </div>
         </q-img>
         <q-card-section>
@@ -112,7 +120,8 @@ const cartOffer = computed(() =>
 const footerMenu = computed(
   () =>
     (offer.value && offer.value.type === 'SERVICE') ||
-    (offer.value?.stock_type === 'LIMITED' && offer.value.stock_qty > 0)
+    (offer.value?.stock_type === 'LIMITED' && offer.value.stock_qty > 0) ||
+    offer.value?.stock_type === 'INFINITY'
 );
 const offer = ref<IShopOffer | undefined>(undefined);
 const qty = ref(1);

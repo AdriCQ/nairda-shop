@@ -5,7 +5,17 @@
       spinner-color="primary"
       spinner-size="82px"
       :ratio="4 / 3"
-    />
+    >
+      <div
+        class="absolute-top-left"
+        style="padding: 0px; background-color: transparent"
+      >
+        <q-chip dense>
+          <span>{{ data.rating }}</span>
+          <q-icon name="mdi-star" color="orange" size="1rem" />
+        </q-chip>
+      </div>
+    </q-img>
     <q-card-section class="q-pa-xs text-center store-widget-title">
       <div class="text-body1">{{ $props.data.title }}</div>
     </q-card-section>

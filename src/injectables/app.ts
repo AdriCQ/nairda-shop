@@ -36,7 +36,7 @@ class AppInjectable {
     this._homeOffers.value = offers;
   }
   get homeStores() {
-    return this._homeOffers.value;
+    return this._homeStores.value;
   }
   set homeStores(s: IShopStore[]) {
     this._homeStores.value = s;

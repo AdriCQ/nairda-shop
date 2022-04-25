@@ -17,12 +17,13 @@
         </div>
 
         <div
-          class="absolute-top-right"
-          style="padding: 0.2rem"
-          v-if="store.rating > 0"
+          class="absolute-top-left"
+          style="padding: 0px; background-color: transparent"
         >
-          <span>{{ store.rating }}</span>
-          <q-icon size="sm" class="q-ml-xs" name="mdi-star" color="primary" />
+          <q-chip dense>
+            <span>{{ store.rating }}</span>
+            <q-icon name="mdi-star" color="orange" size="1rem" />
+          </q-chip>
         </div>
       </q-img>
       <q-card-section>

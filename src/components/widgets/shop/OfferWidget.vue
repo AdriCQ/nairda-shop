@@ -10,6 +10,15 @@
       </div>
       <div
         class="absolute-top-left"
+        style="padding: 0px; background-color: transparent"
+      >
+        <q-chip dense>
+          <span>{{ data.rating }}</span>
+          <q-icon name="mdi-star" color="orange" size="1rem" />
+        </q-chip>
+      </div>
+      <div
+        class="absolute-top-left"
         style="padding: 0.2rem"
         v-if="data.stock_type === 'SOLD_OUT'"
       >
