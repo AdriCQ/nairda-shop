@@ -19,6 +19,7 @@
         icon="mdi-check"
         label="Confirmar"
         @click="confirm"
+        v-if="markers.length"
       />
       <q-btn
         color="white"

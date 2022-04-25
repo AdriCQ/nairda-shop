@@ -98,7 +98,11 @@
           color="primary"
         />
         <template v-if="toggleDateTime">
-          <q-date v-model="form.shipping_time" mask="YYYY-MM-DD HH:mm" />
+          <q-date
+            v-model="form.shipping_time"
+            :options="calendarMinDate"
+            mask="YYYY-MM-DD HH:mm"
+          />
           <q-time v-model="form.shipping_time" mask="YYYY-MM-DD HH:mm" />
         </template>
 
@@ -205,11 +209,11 @@
 import OrderOfferWidget from 'components/widgets/shop/OrderOfferWidget.vue';
 import MapWidget from 'src/components/widgets/MapWidget.vue';
 import AuthWidget from 'src/components/widgets/AuthWidget.vue';
-import { computed } from '@vue/reactivity';
+import { computed, ref } from 'vue';
 import { injectStrict, _shopCart, _shopOrder } from 'src/injectables';
-import { ref } from 'vue';
 import { IShopOrderCreateRequest } from 'src/api';
 import { LatLng } from 'leaflet';
+import { date } from 'quasar';
 import { isAuth } from 'src/helpers';
 /**
  * -----------------------------------------
@@ -265,9 +269,23 @@ const toggleMessage = ref(false);
  * -----------------------------------------
  */
 /**
+ * calendarMinDate
+ */
+function calendarMinDate(_date: string) {
+  return _date >= date.formatDate(Date.now(), 'YYYY/MM/DD');
+}
+/**
  * canNext
  */
 function canNext() {
+  switch (step.value) {
+    case 'shipping_address':
+      return form.value.shipping_address && form.value.shipping_coordinate;
+    case 'message':
+      return !toggleMessage.value || form.value.message;
+    case 'shipping_time':
+      return !toggleDateTime.value || form.value.shipping_time;
+  }
   return true;
 }
 /**
@@ -316,7 +334,7 @@ function nextStep(force = false) {
  * @param markers
  */
 function onMapConfirm(markers: LatLng[]) {
-  console.log(markers);
+  form.value.shipping_coordinate = markers[0];
   setTimeout(() => {
     mapPopup.value = false;
     nextStep(true);
