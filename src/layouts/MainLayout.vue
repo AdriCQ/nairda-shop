@@ -3,11 +3,11 @@
     <app-header />
 
     <drawer-left />
-
-    <q-page-container class="text-grey-9">
-      <router-view />
-    </q-page-container>
-
+    <q-pull-to-refresh @refresh="init">
+      <q-page-container class="text-grey-9">
+        <router-view />
+      </q-page-container>
+    </q-pull-to-refresh>
     <app-footer />
   </q-layout>
 </template>
@@ -26,7 +26,11 @@ import {
   _map,
   _shopOrder,
   $shopOrderInjectable,
+  injectStrict,
+  _app,
 } from 'src/injectables';
+
+const $app = injectStrict(_app);
 /**
  * -----------------------------------------
  *	Setup
@@ -41,6 +45,18 @@ provide(_shopCart, $shopCartInjectable);
  *	Init
  * -----------------------------------------
  */
-void $shopCategory.availableAction();
-void $shopCategory.allAction();
+async function init(done: CallableFunction) {
+  Promise.all([
+    await $shopCategory.availableAction(),
+    await $shopCategory.allAction(),
+    await $app.loadOffers(),
+    await $app.loadStores(),
+    await $app.loadAnnouncements(),
+  ]).finally(() => {
+    done();
+  });
+}
+init(() => {
+  console.log('Refresh');
+});
 </script>

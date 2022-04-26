@@ -79,12 +79,4 @@ const hasCategories = computed(() => $categories.available.length > 3);
 const announcements = computed(() => $app.homeAnn);
 const offers = computed(() => $app.homeOffers);
 const stores = computed(() => $app.homeStores);
-/**
- * -----------------------------------------
- *	Init
- * -----------------------------------------
- */
-$app.loadAnnouncements();
-$app.loadOffers();
-$app.loadStores();
 </script>
