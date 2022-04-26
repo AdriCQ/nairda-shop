@@ -66,6 +66,22 @@
         </q-item-section>
       </q-item>
       <!-- / Orders -->
+      <!-- About -->
+      <q-item
+        clickable
+        v-ripple
+        :to="{ name: ROUTE_NAME.ABOUT }"
+        v-if="isAuth()"
+      >
+        <q-item-section avatar top>
+          <q-avatar size="md" icon="mdi-information" text-color="primary" />
+        </q-item-section>
+
+        <q-item-section>
+          <q-item-label lines="1">Sobre Nosotros</q-item-label>
+        </q-item-section>
+      </q-item>
+      <!-- / About -->
     </q-list>
   </q-drawer>
 </template>

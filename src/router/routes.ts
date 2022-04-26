@@ -15,6 +15,11 @@ const routes: RouteRecordRaw[] = [
         name: ROUTE_NAME.HOME,
         component: () => import('pages/IndexPage.vue'),
       },
+      {
+        path: 'about',
+        name: ROUTE_NAME.ABOUT,
+        component: () => import('pages/AboutUs.vue'),
+      },
     ],
   },
   authRoutes,
