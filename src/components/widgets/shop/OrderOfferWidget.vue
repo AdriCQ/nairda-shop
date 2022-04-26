@@ -66,10 +66,12 @@ const { orderOffer, dense } = toRefs($props);
  * goToOffer
  */
 function goToOffer() {
-  void $router.push({
-    name: ROUTE_NAME.SHOP_OFFER,
-    params: { id: orderOffer.value.offer_id },
-  });
+  if (!$props.dense) {
+    void $router.push({
+      name: ROUTE_NAME.SHOP_OFFER,
+      params: { id: orderOffer.value.offer_id },
+    });
+  }
 }
 
 function remove() {

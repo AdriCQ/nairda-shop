@@ -24,9 +24,26 @@ class OrderInjectable {
   }
   /**
    * -----------------------------------------
+   *	Methods
+   * -----------------------------------------
+   */
+  /**
+   * -----------------------------------------
    *	Actions
    * -----------------------------------------
    */
+
+  /**
+   * list
+   */
+  async list() {
+    try {
+      const resp = await $nairdaApi.ShopOrder.list();
+      this.myOrders = resp.data;
+    } catch (error) {
+      notificationHelper.axiosError(error, 'No pudimos encontrar ordenes');
+    }
+  }
   /**
    * createMassAction
    * @param order

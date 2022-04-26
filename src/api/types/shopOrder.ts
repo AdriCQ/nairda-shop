@@ -56,6 +56,6 @@ export interface IShopOrderCreateRequest {
  * IShopOrderUpdateRequest
  */
 export interface IShopOrderUpdateRequest {
-  shipping_time: string;
-  status: IShopOrderStatus;
+  shipping_time?: string;
+  status?: IShopOrderStatus;
 }

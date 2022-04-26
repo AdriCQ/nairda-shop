@@ -52,7 +52,7 @@ export class ShopOrderService {
    * list
    */
   async list() {
-    return this.api.get<Paginated<IShopOrder>>('/api/shop/orders');
+    return this.api.get<IShopOrder[]>('/api/shop/orders');
   }
   /**
    * listByStore
@@ -65,11 +65,11 @@ export class ShopOrderService {
   }
   /**
    * update
-   * @param offerId number
+   * @param id number
    * @param update Partial<IShopOrder>
    */
-  async updateStatus(offerId: number, update: IShopOrderUpdateRequest) {
+  async updateStatus(id: number, update: IShopOrderUpdateRequest) {
     await csrfToken(this.api);
-    return this.api.patch<IShopOrder>(`/api/shop/offers/${offerId}`, update);
+    return this.api.patch<IShopOrder>(`/api/shop/orders/${id}/status`, update);
   }
 }
