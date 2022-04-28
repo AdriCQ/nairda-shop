@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, PropType, onBeforeMount } from 'vue';
 import 'leaflet/dist/leaflet.css';
 import { LatLng, LocationEvent, Icon } from 'leaflet';
 import {
@@ -87,8 +87,25 @@ export default defineComponent({
     LTileLayer,
   },
   emits: ['add-position', 'current-gps', 'confirm'],
+  props: {
+    initialMarkers: {
+      type: Array as PropType<LatLng[]>,
+      required: false,
+    },
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
+  },
   setup($props, { emit }) {
     const $mapStore = injectStrict(_map);
+
+    onBeforeMount(() => {
+      if ($props.initialMarkers && $props.initialMarkers.length) {
+        $mapStore.markers = $props.initialMarkers;
+        $mapStore.center = $props.initialMarkers[0];
+      }
+    });
     /**
      * -----------------------------------------
      *	Data
@@ -108,6 +125,7 @@ export default defineComponent({
      * addMarker
      */
     function addMarker(event: MouseEvent | PointerEvent | LocationEvent) {
+      if ($props.readonly) return;
       if ((event as LocationEvent).latlng) {
         if (markers.value.length && settings.value.multiple)
           $mapStore.markers.push((event as LocationEvent).latlng);

@@ -26,6 +26,13 @@
       <q-card-section>
         <div class="text-subtitle1" v-if="order.shipping_address">
           Dirección: {{ order.shipping_address }}
+          <q-chip
+            class="glossy"
+            icon="mdi-map-marker"
+            label="Ver en Mapa"
+            clickable
+            @click="mapDialog = true"
+          />
         </div>
         <div class="text-subtitle1" v-if="order.shipping_time">
           <span v-if="duration && order.status === 'ACCEPTED'"
@@ -48,6 +55,16 @@
         />
       </q-card-actions>
     </q-card>
+
+    <!-- MapDialog -->
+    <q-dialog v-model="mapDialog" maximized>
+      <map-widget
+        :initial-markers="[order.shipping_coordinate]"
+        readonly
+        @confirm="mapDialog = false"
+      />
+    </q-dialog>
+    <!-- / MapDialog -->
   </q-page>
 </template>
 
@@ -60,6 +77,7 @@ import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { date as qDate, Dialog } from 'quasar';
 import OrderOffer from 'components/widgets/shop/OrderOfferWidget.vue';
+import MapWidget from 'src/components/widgets/MapWidget.vue';
 
 const $route = useRoute();
 /**
@@ -78,6 +96,7 @@ const canCancel = computed(() => {
 const duration = computed(() =>
   getRemainTime(new Date(Date.parse(order.value.shipping_time)))
 );
+const mapDialog = ref(false);
 const order = ref<IShopOrder>({
   id: 0,
   order_offers: [],

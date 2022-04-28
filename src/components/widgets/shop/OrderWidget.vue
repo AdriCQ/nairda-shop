@@ -1,6 +1,7 @@
 <template>
   <q-card>
     <q-card-section>
+      <div class="text-body1">${{ Number(order.total_price).toFixed(2) }}</div>
       <div class="absolute-top-right q-pa-xs">
         <q-chip
           class="glossy"
