@@ -44,6 +44,11 @@ const route: RouteRecordRaw = {
       component: () => import('pages/shop/StoresPage.vue'),
     },
     {
+      path: 'search',
+      name: ROUTE_NAME.SHOP_SEARCH,
+      component: () => import('pages/shop/SearchPage.vue'),
+    },
+    {
       path: 'stores/:id',
       name: ROUTE_NAME.SHOP_STORE,
       component: () => import('pages/shop/StorePage.vue'),

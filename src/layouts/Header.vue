@@ -27,6 +27,7 @@
               dense
               round
               aria-label="Search"
+              @click="searchAction"
             />
           </template>
         </q-input>
@@ -37,14 +38,17 @@
 
 <script lang="ts" setup>
 import { injectStrict, _app } from 'src/injectables';
+import { ROUTE_NAME } from 'src/router';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 /**
  * -----------------------------------------
- *	Init
+ *	Injectables
  * -----------------------------------------
  */
 
 const $app = injectStrict(_app);
+const $router = useRouter();
 /**
  * -----------------------------------------
  *	data
@@ -56,6 +60,13 @@ const search = ref('');
  *	Methods
  * -----------------------------------------
  */
+function searchAction() {
+  void $router.push({
+    name: ROUTE_NAME.SHOP_SEARCH,
+    query: { search: search.value },
+  });
+  search.value = '';
+}
 
 function toggleDrawerLeft() {
   $app.drawerLeft = !$app.drawerLeft;
