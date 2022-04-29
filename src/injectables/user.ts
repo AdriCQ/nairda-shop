@@ -4,6 +4,7 @@ import {
   IUserProfile,
 } from 'src/api';
 import { $nairdaApi } from 'src/boot/axios';
+import { notificationHelper } from 'src/helpers';
 import { InjectionKey, ref } from 'vue';
 
 /**
@@ -60,6 +61,15 @@ class UserInjectable {
     return resp;
   }
   /**
+   * getProfile
+   * @returns
+   */
+  async getProfile() {
+    const resp = await $nairdaApi.User.profile();
+    this.profile = resp.data;
+    return resp.data;
+  }
+  /**
    * Register Action
    * @param registerParams
    */
@@ -69,6 +79,22 @@ class UserInjectable {
     this.apiToken = resp.data.api_token;
     this.save();
     return resp;
+  }
+  /**
+   * update
+   * @param update
+   */
+  async update(update: Partial<IUserProfile> | FormData) {
+    try {
+      const resp = await $nairdaApi.User.update(
+        update as Partial<IUserProfile>
+      );
+      this.profile = resp.data;
+      this.save();
+      notificationHelper.success(['Perfil actualizado']);
+    } catch (error) {
+      notificationHelper.axiosError(error, 'Error actualizando perfil');
+    }
   }
   /**
    * -----------------------------------------

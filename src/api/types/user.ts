@@ -1,6 +1,6 @@
 /**
-* @interface Profile
-*/
+ * @interface Profile
+ */
 export type IUserProfile = {
   readonly id: number;
   readonly first_name: string;
@@ -8,14 +8,16 @@ export type IUserProfile = {
   readonly email: string;
   readonly phone?: string;
   readonly address?: string;
-}
+  readonly avatar: string;
+  role: { name: 'admin' | 'user' | 'vendor'; display_name: string };
+};
 /**
  * -----------------------------------------
  *	HTTP
  * -----------------------------------------
  */
 /**
- * 
+ *
  */
 export type IUserAuthLoginRequest = {
   readonly email: string;
@@ -24,7 +26,7 @@ export type IUserAuthLoginRequest = {
   readonly service_name: string;
 };
 /**
- * 
+ *
  */
 export type IUserAuthRegisterRequest = {
   readonly service_name: string;
@@ -33,9 +35,9 @@ export type IUserAuthRegisterRequest = {
   readonly email: string;
   readonly password: string;
   readonly password_confirmation: string;
-}
+};
 /**
- * 
+ *
  */
 export type IUserAuthResponse = {
   readonly data: IUserProfile;

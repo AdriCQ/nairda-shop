@@ -39,4 +39,17 @@ export class UserServices {
     await csrfToken(this.api);
     return this.api.post<IUserAuthResponse>('/api/users/register', profile);
   }
+  /**
+   * update
+   * @param update
+   * @returns
+   */
+  async update(update: Partial<IUserProfile>) {
+    await csrfToken(this.api);
+    return this.api.post<IUserProfile>('/api/users', update, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  }
 }
