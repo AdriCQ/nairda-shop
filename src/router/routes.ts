@@ -20,6 +20,11 @@ const routes: RouteRecordRaw[] = [
         name: ROUTE_NAME.ABOUT,
         component: () => import('pages/AboutUs.vue'),
       },
+      {
+        path: 'profile',
+        name: ROUTE_NAME.PROFILE,
+        component: () => import('pages/ProfilePage.vue'),
+      },
     ],
   },
   authRoutes,

@@ -2,7 +2,7 @@
   <q-page padding class="q-gutter-y-sm" v-if="store">
     <q-card class="no-box-shadow text-grey-9">
       <q-img
-        :src="handleImage(store.image)"
+        :src="store.image"
         :ratio="4 / 3"
         spinner-color="primary"
         spinner-size="82px"
@@ -42,7 +42,7 @@
 <script setup lang="ts">
 import { IShopStore } from 'src/api';
 import { $nairdaApi } from 'src/boot/axios';
-import { notificationHelper, handleImage, goTo } from 'src/helpers';
+import { notificationHelper, goTo } from 'src/helpers';
 import { ROUTE_NAME } from 'src/router';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';

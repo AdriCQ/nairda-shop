@@ -15,7 +15,7 @@
       <q-avatar v-if="!dense" size="5.2rem" rounded style="padding: 0.2rem">
         <img
           style="border-radius: 50%"
-          :src="handleImage(orderOffer.offer.image)"
+          :src="orderOffer.offer.image"
           :alt="orderOffer.offer?.title"
         />
       </q-avatar>
@@ -33,7 +33,7 @@
 import { IShopOrderOffer } from 'src/api';
 import { toRefs } from 'vue';
 import { Dialog } from 'quasar';
-import { handleImage } from 'src/helpers';
+import {} from 'src/helpers';
 import { useRouter } from 'vue-router';
 import { ROUTE_NAME } from 'src/router';
 import { injectStrict, _shopCart } from 'src/injectables';

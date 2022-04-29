@@ -1,7 +1,7 @@
 <template>
   <q-card @click="goToStore">
     <q-img
-      :src="handleImage($props.data.image)"
+      :src="$props.data.image"
       spinner-color="primary"
       spinner-size="82px"
       :ratio="4 / 3"
@@ -26,7 +26,7 @@
 import { IShopStore } from 'src/api';
 import { ROUTE_NAME } from 'src/router';
 import { useRouter } from 'vue-router';
-import { handleImage } from 'src/helpers';
+import {} from 'src/helpers';
 /**
  * -----------------------------------------
  *	Setup

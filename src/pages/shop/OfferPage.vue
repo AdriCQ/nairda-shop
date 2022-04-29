@@ -7,7 +7,7 @@
     >
       <q-card class="no-box-shadow">
         <q-img
-          :src="handleImage(offer.image)"
+          :src="offer.image"
           :ratio="4 / 3"
           spinner-color="primary"
           spinner-size="82px"
@@ -96,7 +96,7 @@
 <script setup lang="ts">
 import { IShopOffer } from 'src/api';
 import { $nairdaApi } from 'src/boot/axios';
-import { goTo, handleImage, notificationHelper } from 'src/helpers';
+import { goTo, notificationHelper } from 'src/helpers';
 import { injectStrict, _shopCart } from 'src/injectables';
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';

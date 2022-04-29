@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 import { IPublicityAnnouncement } from 'src/api';
-import { handleImage } from 'src/helpers';
 import { ROUTE_NAME } from 'src/router';
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
@@ -32,9 +31,9 @@ const $router = useRouter();
  */
 
 const image = computed<string | null>(() => {
-  if ($props.data.image) return handleImage($props.data.image);
+  if ($props.data.image) return $props.data.image;
   if ($props.data.related && $props.data.related.model?.image)
-    return handleImage($props.data.related.model?.image);
+    return $props.data.related.model?.image;
   return null;
 });
 /**

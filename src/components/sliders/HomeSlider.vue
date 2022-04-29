@@ -18,7 +18,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import type { IPublicityAnnouncement } from 'src/api';
-import { handleImage } from 'src/helpers';
 import { useRouter } from 'vue-router';
 import { ROUTE_NAME } from 'src/router';
 
@@ -28,9 +27,8 @@ const $router = useRouter();
 const slide = ref('');
 
 function image(ann: IPublicityAnnouncement): string | undefined {
-  if (ann.image) return handleImage(ann.image);
-  if (ann.related && ann.related.model?.image)
-    return handleImage(ann.related.model?.image);
+  if (ann.image) return ann.image;
+  if (ann.related && ann.related.model?.image) return ann.related.model?.image;
 }
 
 function goToLink(ann: IPublicityAnnouncement) {
